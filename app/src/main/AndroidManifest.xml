@@ -30,6 +30,17 @@
                     android:name=".activities_fragments.activity_login.LoginActivity"
                     android:configChanges="keyboardHidden|screenSize|orientation"
                     android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+                <activity
+                    android:name=".activities_fragments.activity_splash.SplashActivity"
+                    android:configChanges="keyboardHidden|screenSize|orientation"
+                    android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
+                        <intent-filter>
+                                <action android:name="android.intent.action.MAIN" />
+
+                                <category android:name="android.intent.category.LAUNCHER" />
+                        </intent-filter>
+                </activity>
+
         </application>
 
 </manifest>
