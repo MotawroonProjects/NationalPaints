@@ -7,6 +7,13 @@
     <string name="please_enter_code_sent_to">من فضلك ادخل رمز التحقق المرسل الى</string>
     <string name="resend">إعادة إرسال</string>
     <string name="confirm">تأكيد</string>
+    <string name="home">الرئيسية</string>
+    <string name="profile">حسابي</string>
+    <string name="points">نقاطي</string>
+    <string name="award">جوائز</string>
+    <string name="galleries">معارض</string>
+    <string name="departments">الأقسام</string>
+    <string name="no_data_to_show">لا يوجد عناصر لعرضها</string>
     <string name="notifications">الاشعارات</string>
     <string name="ok">أقبل</string>
     <string name="failed">يوجد مشكله وجارى العمل عليها</string>
