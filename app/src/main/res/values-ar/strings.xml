@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">National Paints</string>
+    <string name="field_required">الحقل مطلوب</string>
+    <string name="inv_email">ايميل خاطئ</string>
+    <string name="phone">رقم الجوال</string>
+    <string name="login">تسجيل الدخول</string>
+</resources>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">National Paints</string>
+    <string name="field_required">Field Required</string>
+    <string name="inv_email">Inviald Email</string>
+    <string name="phone">Phone</string>
+    <string name="login">Login</string>
+</resources>
