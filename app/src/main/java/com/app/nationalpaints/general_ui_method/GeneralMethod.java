@@ -9,7 +9,6 @@ import android.widget.TextView;
 import androidx.databinding.BindingAdapter;
 
 import com.app.nationalpaints.R;
-import com.app.nationalpaints.models.google_models.NearbyModel;
 import com.app.nationalpaints.tags.Tags;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
