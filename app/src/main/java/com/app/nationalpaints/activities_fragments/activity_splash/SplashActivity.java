@@ -2,8 +2,13 @@ package com.app.nationalpaints.activities_fragments.activity_splash;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.transition.Fade;
+import android.transition.Transition;
+import android.view.WindowManager;
+import android.view.animation.LinearInterpolator;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -31,7 +36,20 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+            Transition transition = new Fade();
+            transition.setInterpolator(new LinearInterpolator());
+            transition.setDuration(500);
+            getWindow().setEnterTransition(transition);
+            getWindow().setExitTransition(transition);
+
+        }
         binding = DataBindingUtil.setContentView(this, R.layout.activity_splash);
+
+
         initView();
     }
 
@@ -40,10 +58,10 @@ public class SplashActivity extends AppCompatActivity {
         userModel = preference.getUserData(this);
         new Handler().postDelayed(() -> {
             Intent intent;
-            if (userModel==null){
+            if (userModel == null) {
                 intent = new Intent(this, LoginActivity.class);
 
-            }else {
+            } else {
                 intent = new Intent(this, LoginActivity.class);
 
                 //  intent = new Intent(this, HomeActivity.class);
@@ -53,6 +71,6 @@ public class SplashActivity extends AppCompatActivity {
 
             finish();
 
-        },2000);
+        }, 2000);
     }
 }
