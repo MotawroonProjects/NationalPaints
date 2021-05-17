@@ -24,6 +24,7 @@ import androidx.databinding.DataBindingUtil;
 
 
 import com.app.nationalpaints.R;
+import com.app.nationalpaints.databinding.DialogAlertBinding;
 
 import java.io.File;
 
@@ -33,6 +34,21 @@ import okhttp3.RequestBody;
 
 public class Common {
 
+    public static void CreateDialogAlert(Context context,String msg) {
+        final AlertDialog dialog = new AlertDialog.Builder(context)
+                .create();
+
+        DialogAlertBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_alert, null, false);
+
+        binding.tvMsg.setText(msg);
+        binding.btnCancel.setOnClickListener(v -> dialog.dismiss()
+
+        );
+        dialog.getWindow().getAttributes().windowAnimations = R.style.dialog_congratulation_animation;
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setView(binding.getRoot());
+        dialog.show();
+    }
 
     public static void CloseKeyBoard(Context context, View view) {
         if (context != null && view != null) {

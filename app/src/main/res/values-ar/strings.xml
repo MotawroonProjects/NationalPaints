@@ -4,4 +4,10 @@
     <string name="inv_email">ايميل خاطئ</string>
     <string name="phone">رقم الجوال</string>
     <string name="login">دخول</string>
+    <string name="please_enter_code_sent_to">من فضلك ادخل رمز التحقق المرسل الى</string>
+    <string name="resend">إعادة إرسال</string>
+    <string name="confirm">تأكيد</string>
+    <string name="notifications">Notifications</string>
+    <string name="ok">Ok</string>
+    <string name="failed">Faild</string>
 </resources>

@@ -4,4 +4,10 @@
     <string name="inv_email">Inviald Email</string>
     <string name="phone">Phone</string>
     <string name="login">Login</string>
+    <string name="please_enter_code_sent_to">Please Enter Code Sent To You</string>
+    <string name="resend">Resend</string>
+    <string name="confirm">Confirm</string>
+    <string name="notifications">Notifications</string>
+    <string name="ok">Ok</string>
+    <string name="failed">Faild</string>
 </resources>
