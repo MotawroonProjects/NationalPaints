@@ -21,6 +21,7 @@ import androidx.databinding.DataBindingUtil;
 
 
 import com.app.nationalpaints.R;
+import com.app.nationalpaints.activities_fragments.activity_verification_code.VerificationCodeActivity;
 import com.app.nationalpaints.databinding.ActivityLoginBinding;
 import com.app.nationalpaints.language.Language;
 import com.app.nationalpaints.models.LoginModel;
@@ -110,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void login() {
-        navigateToHomeActivity();
+        navigateToConfirmCode();
 //
 //        ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
 //        dialog.setCancelable(false);
@@ -172,7 +173,11 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-
+    private void navigateToConfirmCode() {
+                Intent intent = new Intent(this, VerificationCodeActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
 
 }

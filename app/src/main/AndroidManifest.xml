@@ -27,6 +27,10 @@
             android:usesCleartextTraffic="true"
             tools:targetApi="m">
                 <activity
+                    android:name=".activities_fragments.activity_verification_code.VerificationCodeActivity"
+                    android:configChanges="keyboardHidden|screenSize|orientation"
+                    android:windowSoftInputMode="adjustResize" />
+                <activity
                     android:name=".activities_fragments.activity_login.LoginActivity"
                     android:configChanges="keyboardHidden|screenSize|orientation"
                     android:windowSoftInputMode="adjustResize" />

@@ -7,7 +7,7 @@
     <string name="please_enter_code_sent_to">من فضلك ادخل رمز التحقق المرسل الى</string>
     <string name="resend">إعادة إرسال</string>
     <string name="confirm">تأكيد</string>
-    <string name="notifications">Notifications</string>
-    <string name="ok">Ok</string>
-    <string name="failed">Faild</string>
+    <string name="notifications">الاشعارات</string>
+    <string name="ok">أقبل</string>
+    <string name="failed">يوجد مشكله وجارى العمل عليها</string>
 </resources>
