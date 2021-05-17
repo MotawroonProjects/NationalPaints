@@ -17,7 +17,7 @@
         <ImageView
             android:id="@+id/image1"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="250dp"
             android:layout_gravity="center"
             android:scaleType="fitXY"
             android:src="@drawable/top_back"
@@ -31,7 +31,7 @@
             android:layout_width="200dp"
             android:layout_height="120dp"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:scaleType="fitXY"
             android:src="@drawable/logo"
             app:layout_constraintEnd_toEndOf="parent"

@@ -29,7 +29,7 @@
                 <activity
                     android:name=".activities_fragments.activity_login.LoginActivity"
                     android:configChanges="keyboardHidden|screenSize|orientation"
-                    android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+                    android:windowSoftInputMode="adjustResize" />
                 <activity
                     android:name=".activities_fragments.activity_splash.SplashActivity"
                     android:configChanges="keyboardHidden|screenSize|orientation"
