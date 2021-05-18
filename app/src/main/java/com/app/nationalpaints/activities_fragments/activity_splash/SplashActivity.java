@@ -15,6 +15,7 @@ import androidx.databinding.DataBindingUtil;
 
 
 import com.app.nationalpaints.R;
+import com.app.nationalpaints.activities_fragments.activity_home.HomeActivity;
 import com.app.nationalpaints.activities_fragments.activity_login.LoginActivity;
 import com.app.nationalpaints.databinding.ActivitySplashBinding;
 import com.app.nationalpaints.language.Language;
@@ -62,9 +63,7 @@ public class SplashActivity extends AppCompatActivity {
                 intent = new Intent(this, LoginActivity.class);
 
             } else {
-                intent = new Intent(this, LoginActivity.class);
-
-                //  intent = new Intent(this, HomeActivity.class);
+                  intent = new Intent(this, HomeActivity.class);
 
             }
             startActivity(intent);
