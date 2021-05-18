@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.app.nationalpaints.R;
+import com.app.nationalpaints.activities_fragments.activity_sign_up.SignUpActivity;
 import com.app.nationalpaints.databinding.ActivityVerificationCodeBinding;
 import com.app.nationalpaints.language.Language;
 import com.app.nationalpaints.preferences.Preferences;
@@ -84,6 +85,7 @@ public class VerificationCodeActivity extends AppCompatActivity {
         });
         binding.btnConfirm.setOnClickListener(view -> {
             String code = binding.edtCode.getText().toString().trim();
+            navigateToSignUpActivity();
             if (!code.isEmpty()) {
                 binding.edtCode.setError(null);
                 Common.CloseKeyBoard(this, binding.edtCode);
@@ -93,7 +95,7 @@ public class VerificationCodeActivity extends AppCompatActivity {
             }
 
         });
-    //    sendSmsCode();
+        sendSmsCode();
        // login();
     }
 
@@ -182,7 +184,7 @@ public class VerificationCodeActivity extends AppCompatActivity {
     }
 
     private void login() {
-
+navigateToSignUpActivity();
 //        ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
 //        dialog.setCancelable(false);
 //        dialog.show();
@@ -241,11 +243,11 @@ navigateToSignUpActivity();
     }
 
     private void navigateToSignUpActivity() {
-//        Intent intent = new Intent(this, SignUpActivity.class);
-//        intent.putExtra("phone", phone);
-//        intent.putExtra("phone_code", phone_code);
-//        startActivity(intent);
-//        finish();
+        Intent intent = new Intent(this, SignUpActivity.class);
+        intent.putExtra("phone", phone);
+        intent.putExtra("phone_code", phone_code);
+        startActivity(intent);
+        finish();
     }
 
 

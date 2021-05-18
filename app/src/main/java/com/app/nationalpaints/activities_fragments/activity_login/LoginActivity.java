@@ -51,8 +51,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
             Transition transition = new Fade();
@@ -112,8 +112,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void login() {
-        navigateToHomeActivity();
-        //navigateToConfirmCode();
+       // navigateToHomeActivity();
+        navigateToConfirmCode();
 //
 //        ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
 //        dialog.setCancelable(false);
@@ -177,7 +177,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private void navigateToConfirmCode() {
                 Intent intent = new Intent(this, VerificationCodeActivity.class);
-        startActivity(intent);
+        intent.putExtra("phone",loginModel.getPhone());
+        intent.putExtra("phone_code",loginModel.getPhone_code());
+                startActivity(intent);
         finish();
     }
 

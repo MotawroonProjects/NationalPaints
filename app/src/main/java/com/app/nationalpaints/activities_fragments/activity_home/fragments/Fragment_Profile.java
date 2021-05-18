@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.app.nationalpaints.R;
 import com.app.nationalpaints.activities_fragments.activity_home.HomeActivity;
+import com.app.nationalpaints.activities_fragments.activity_sign_up.SignUpActivity;
 import com.app.nationalpaints.databinding.FragmentProfileBinding;
 import com.app.nationalpaints.models.UserModel;
 import com.app.nationalpaints.preferences.Preferences;
@@ -51,11 +52,21 @@ public class Fragment_Profile extends Fragment  {
         Paper.init(activity);
         lang = Paper.book().read("lang", "ar");
         binding.setLang(lang);
-
+binding.llEdit.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+navigateToSignUpActivity();
+    }
+});
 
 
     }
+    private void navigateToSignUpActivity() {
+        Intent intent = new Intent(activity, SignUpActivity.class);
 
+        startActivity(intent);
+
+    }
 
 
 }

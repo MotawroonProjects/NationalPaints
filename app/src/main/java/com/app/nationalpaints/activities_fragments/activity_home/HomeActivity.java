@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,6 +16,7 @@ import androidx.fragment.app.FragmentManager;
 import com.app.nationalpaints.R;
 import com.app.nationalpaints.activities_fragments.activity_home.fragments.Fragment_Home;
 import com.app.nationalpaints.activities_fragments.activity_home.fragments.Fragment_Profile;
+import com.app.nationalpaints.activities_fragments.activity_notification.NotificationActivity;
 import com.app.nationalpaints.activities_fragments.activity_qr_code.QrCodeActivity;
 import com.app.nationalpaints.databinding.ActivityHomeBinding;
 import com.app.nationalpaints.language.Language;
@@ -68,6 +70,13 @@ public class HomeActivity extends AppCompatActivity {
 
 
         updateFirebaseToken();
+        binding.flNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(HomeActivity.this, NotificationActivity.class);
+                startActivity(intent);
+            }
+        });
 //        if (userModel != null) {
 //            EventBus.getDefault().register(this);
 //

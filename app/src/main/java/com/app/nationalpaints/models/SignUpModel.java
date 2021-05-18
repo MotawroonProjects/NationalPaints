@@ -2,6 +2,7 @@ package com.app.nationalpaints.models;
 
 import android.content.Context;
 import android.util.Patterns;
+import android.widget.Toast;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
@@ -10,105 +11,188 @@ import androidx.databinding.ObservableField;
 import com.app.nationalpaints.BR;
 import com.app.nationalpaints.R;
 
+import java.util.List;
+
 
 public class SignUpModel extends BaseObservable {
-    private String name;
-    private String phone_code;
-    private String phone;
-    private String email;
-    private String image_url;
-    public ObservableField<String> error_name = new ObservableField<>();
-    public ObservableField<String> error_email = new ObservableField<>();
+    private int area_id;
+    private int governate_id;
+    private String first_name;
+    private String seconed_name;
+    private String third_name;
+    private String address;
+    private double lat;
+    private double lng;
+    private String national_num;
+
+
+    public ObservableField<String> error_first_name = new ObservableField<>();
+    public ObservableField<String> error_seconed_name = new ObservableField<>();
+    public ObservableField<String> error_third_name = new ObservableField<>();
+
+    public ObservableField<String> error_national = new ObservableField<>();
+    public ObservableField<String> error_address = new ObservableField<>();
 
 
     public boolean isDataValid(Context context) {
-        if (!name.trim().isEmpty()
+        if (!first_name.trim().isEmpty()
                 &&
-                !email.trim().isEmpty() &&
-                Patterns.EMAIL_ADDRESS.matcher(email.trim()).matches()
+                !seconed_name.trim().isEmpty() &&
+                !third_name.trim().isEmpty() &&
+                !address.trim().isEmpty() &&
+                !national_num.trim().isEmpty() &&
+                governate_id != 0 && area_id != 0
+
 
         ) {
-            error_name.set(null);
-            error_email.set(null);
-
+            error_first_name.set(null);
+            error_seconed_name.set(null);
+            error_third_name.set(null);
+            error_address.set(null);
+            error_national.set(null);
             return true;
         } else {
-            if (name.trim().isEmpty()) {
-                error_name.set(context.getString(R.string.field_required));
+
+            if (first_name.trim().isEmpty()) {
+                error_first_name.set(context.getString(R.string.field_required));
 
             } else {
-                error_name.set(null);
+                error_first_name.set(null);
 
             }
-            if (email.trim().isEmpty()) {
-                error_email.set(context.getString(R.string.field_required));
+            if (seconed_name.trim().isEmpty()) {
+                error_seconed_name.set(context.getString(R.string.field_required));
 
             } else {
-                error_email.set(null);
+                error_seconed_name.set(null);
 
             }
-            if (!Patterns.EMAIL_ADDRESS.matcher(email.trim()).matches()) {
-                error_email.set(context.getString(R.string.inv_email));
+            if (third_name.trim().isEmpty()) {
+                error_third_name.set(context.getString(R.string.field_required));
 
             } else {
-                error_email.set(null);
+                error_third_name.set(null);
 
             }
+            if (address.trim().isEmpty()) {
+                error_address.set(context.getString(R.string.field_required));
 
+            } else {
+                error_address.set(null);
+
+            }
+            if (national_num.trim().isEmpty()) {
+                error_national.set(context.getString(R.string.inv_email));
+
+            } else {
+                error_national.set(null);
+
+            }
+            if (governate_id == 0) {
+                Toast.makeText(context, context.getResources().getString(R.string.ch_gove), Toast.LENGTH_LONG).show();
+            }
+            if (area_id == 0) {
+                Toast.makeText(context, context.getResources().getString(R.string.ch_area), Toast.LENGTH_LONG).show();
+            }
 
             return false;
         }
     }
 
     public SignUpModel() {
-        setName("");
-        setEmail("");
+        setThird_name("");
+        setAddress("");
+        setArea_id(1);
+        setFirst_name("");
+        setLat(0);
+        setLng(0);
+        setSeconed_name("");
+        setGovernate_id(1);
+        setNational_num("");
 
     }
 
 
     @Bindable
-    public String getName() {
-        return name;
+    public String getThird_name() {
+        return third_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-        notifyPropertyChanged(BR.name);
+    public void setThird_name(String third_name) {
+        this.third_name = third_name;
+        notifyPropertyChanged(BR.third_name);
 
     }
 
-    public String getPhone_code() {
-        return phone_code;
+    public int getArea_id() {
+        return area_id;
     }
 
-    public void setPhone_code(String phone_code) {
-        this.phone_code = phone_code;
+    public void setArea_id(int area_id) {
+        this.area_id = area_id;
     }
 
-    public String getPhone() {
-        return phone;
+    public int getGovernate_id() {
+        return governate_id;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setGovernate_id(int governate_id) {
+        this.governate_id = governate_id;
     }
-
-    public String getImage_url() {
-        return image_url;
-    }
-
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
-    }
-
     @Bindable
-    public String getEmail() {
-        return email;
+    public String getFirst_name() {
+        return first_name;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-        notifyPropertyChanged(BR.email);
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
+        notifyPropertyChanged(BR.first_name);
+
+    }
+    @Bindable
+    public String getSeconed_name() {
+        return seconed_name;
+    }
+
+    public void setSeconed_name(String seconed_name) {
+        this.seconed_name = seconed_name;
+        notifyPropertyChanged(BR.seconed_name);
+
+    }
+    @Bindable
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+        notifyPropertyChanged(BR.address);
+
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
+    }
+    @Bindable
+    public String getNational_num() {
+        return national_num;
+    }
+
+    public void setNational_num(String national_num) {
+        this.national_num = national_num;
+        notifyPropertyChanged(BR.national_num);
+
     }
 }
