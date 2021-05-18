@@ -2,6 +2,7 @@ package com.app.nationalpaints.share;
 
 
 import android.content.Context;
+import android.graphics.Typeface;
 
 import androidx.multidex.MultiDexApplication;
 
@@ -19,7 +20,10 @@ public class App extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        TypefaceUtil.setDefaultFont(this, "DEFAULT", "fonts/font.ttf");
+        TypefaceUtil.setDefaultFont(this, "MONOSPACE", "fonts/font.ttf");
+        TypefaceUtil.setDefaultFont(this, "SERIF", "fonts/font.ttf");
+        TypefaceUtil.setDefaultFont(this, "SANS_SERIF", "fonts/font.ttf");
 
     }
 }

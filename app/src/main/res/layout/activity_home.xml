@@ -122,8 +122,8 @@
                 android:layout_height="0dp"
                 android:clickable="true"
                 android:focusable="true"
-                app:layout_constraintTop_toBottomOf="@id/toolBar"
                 app:layout_constraintBottom_toTopOf="@id/bottomNavView"
+                app:layout_constraintTop_toBottomOf="@id/toolBar"
 
                 >
 
@@ -141,16 +141,24 @@
                 />
 
 
-            <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:src="@drawable/ic_qr_code"
+            <androidx.cardview.widget.CardView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
                 app:layout_constraintBottom_toTopOf="@id/bottomNavView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/bottomNavView"
-
-                />
+                android:layout_margin="3dp"
+                app:cardElevation="8dp"
+                app:cardCornerRadius="28dp"
+                >
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_qr_code"
+                    android:scaleType="centerCrop"
+                    />
+            </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

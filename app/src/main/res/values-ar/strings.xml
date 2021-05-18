@@ -21,4 +21,12 @@
     <string name="first">First</string>
     <string name="seconed">Seconed</string>
     <string name="third">Third</string>
+    <string name="previous_award">الجوائز السابقة</string>
+    <string name="current_points">النقاط الحالية</string>
+    <string name="purchase_orders">أوامر الشراء</string>
+    <string name="personal_information">معلومات شخصية</string>
+    <string name="more">المزيد</string>
+    <string name="update_profile">تعديل الحساب</string>
+    <string name="about_us">من نحن</string>
+    <string name="please_scan_the_code_on_the_product_to_add_points">من فضلك امسح الرمز الموجود علي المنتج لاضافة النقاط</string>
 </resources>

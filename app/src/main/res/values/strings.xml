@@ -21,4 +21,12 @@
     <string name="first">First</string>
     <string name="seconed">Seconed</string>
     <string name="third">Third</string>
+    <string name="previous_award">previous award</string>
+    <string name="current_points">Current points</string>
+    <string name="purchase_orders">Purchase orders</string>
+    <string name="personal_information">Personal information</string>
+    <string name="more">More</string>
+    <string name="update_profile">Update profile</string>
+    <string name="about_us">About us</string>
+    <string name="please_scan_the_code_on_the_product_to_add_points">Please scan the code on the product to add points</string>
 </resources>

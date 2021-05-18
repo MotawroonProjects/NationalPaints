@@ -3,52 +3,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.app.nationalpaints">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
 
+    <application
+        android:name=".share.App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="m">
+        <activity android:name=".activities_fragments.activity_qr_code.QrCodeActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:windowSoftInputMode="adjustResize"
+            />
+        <activity
+            android:name=".activities_fragments.activity_home.HomeActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activities_fragments.activity_verification_code.VerificationCodeActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activities_fragments.activity_login.LoginActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activities_fragments.activity_splash.SplashActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <uses-permission android:name="android.permission.INTERNET" />
-        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-        <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-        <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-        <uses-permission android:name="android.permission.CAMERA" />
-        <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-        <uses-permission
-            android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-            tools:ignore="ScopedStorage" />
-
-        <application
-            android:name=".share.App"
-            android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:requestLegacyExternalStorage="true"
-            android:roundIcon="@mipmap/ic_launcher_round"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme"
-            android:usesCleartextTraffic="true"
-            tools:targetApi="m">
-                <activity
-                    android:name=".activities_fragments.activity_home.HomeActivity"
-                    android:configChanges="keyboardHidden|screenSize|orientation"
-                    android:windowSoftInputMode="adjustResize" />
-                <activity
-                    android:name=".activities_fragments.activity_verification_code.VerificationCodeActivity"
-                    android:configChanges="keyboardHidden|screenSize|orientation"
-                    android:windowSoftInputMode="adjustResize" />
-                <activity
-                    android:name=".activities_fragments.activity_login.LoginActivity"
-                    android:configChanges="keyboardHidden|screenSize|orientation"
-                    android:windowSoftInputMode="adjustResize" />
-                <activity
-                    android:name=".activities_fragments.activity_splash.SplashActivity"
-                    android:configChanges="keyboardHidden|screenSize|orientation"
-                    android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
-                        <intent-filter>
-                                <action android:name="android.intent.action.MAIN" />
-
-                                <category android:name="android.intent.category.LAUNCHER" />
-                        </intent-filter>
-                </activity>
-
-        </application>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
 
 </manifest>
