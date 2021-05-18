@@ -8,6 +8,18 @@ public interface Listeners {
         void back();
     }
 
+    interface SignUpListener {
+
+        void openSheet();
+
+        void closeSheet();
+
+        void checkDataValid();
+
+        void checkReadPermission();
+
+        void checkCameraPermission();
+    }
 
 
 
