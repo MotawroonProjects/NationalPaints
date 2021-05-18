@@ -17,4 +17,8 @@
     <string name="galleries">Galleries</string>
     <string name="departments">Departments</string>
     <string name="no_data_to_show">No data to show</string>
+    <string name="name">Name</string>
+    <string name="first">First</string>
+    <string name="seconed">Seconed</string>
+    <string name="third">Third</string>
 </resources>

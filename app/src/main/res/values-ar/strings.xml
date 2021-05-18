@@ -17,4 +17,8 @@
     <string name="notifications">الاشعارات</string>
     <string name="ok">أقبل</string>
     <string name="failed">يوجد مشكله وجارى العمل عليها</string>
+    <string name="name">Name</string>
+    <string name="first">First</string>
+    <string name="seconed">Seconed</string>
+    <string name="third">Third</string>
 </resources>
