@@ -25,7 +25,6 @@
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:ellipsize="end"
-            android:maxLines="2"
             android:text="وريم ايبسوم هو نموذج افتراضي يوضع في التصاميم لتعرض على العميل ليتصور طريقه وضع النصوص بالتصاميم سواء كانت تصاميم مطبوعه ... بروشور او فلاير على سبيل المثال ... او نماذج مواقع انترنت"
             android:textColor="@color/gray12"
             android:textSize="15sp" />

@@ -47,17 +47,17 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         MyHolder myHolder = (MyHolder) holder;
-        myHolder.binding.setModel(list.get(position));
-
-        myHolder.itemView.setOnClickListener(v -> {
-            activity.setItemData(list.get(holder.getAdapterPosition()));
-        });
+//        myHolder.binding.setModel(list.get(position));
+//
+//        myHolder.itemView.setOnClickListener(v -> {
+//            activity.setItemData(list.get(holder.getAdapterPosition()));
+//        });
 
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return 8;
     }
 
     public static class MyHolder extends RecyclerView.ViewHolder {
