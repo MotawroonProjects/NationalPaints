@@ -50,5 +50,5 @@
     <string name="paints">الدهانات</string>
     <string name="product_detials">تفاصيل المنتج</string>
     <string name="available_colors">الالوان المتاحه</string>
-    <string name="no_image" />
+    <string name="no_image">لا يوجد صور</string>
 </resources>
