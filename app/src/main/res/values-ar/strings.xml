@@ -11,7 +11,7 @@
     <string name="profile">حسابي</string>
     <string name="points">نقاطي</string>
     <string name="award">جوائز</string>
-    <string name="galleries">معارض</string>
+    <string name="galleries">معارض التلوين</string>
     <string name="departments">الأقسام</string>
     <string name="no_data_to_show">لا يوجد عناصر لعرضها</string>
     <string name="notifications">الاشعارات</string>
@@ -29,4 +29,9 @@
     <string name="update_profile">تعديل الحساب</string>
     <string name="about_us">من نحن</string>
     <string name="please_scan_the_code_on_the_product_to_add_points">من فضلك امسح الرمز الموجود علي المنتج لاضافة النقاط</string>
+    <string name="details">التفاصيل</string>
+    <string name="total_points">إجمالي النقاط</string>
+    <string name="exchanged_points">نقاط مستبدلة</string>
+    <string name="history">السجل</string>
+    <string name="last_month">اخر شهر</string>
 </resources>

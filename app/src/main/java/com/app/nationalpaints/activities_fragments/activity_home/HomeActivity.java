@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentManager;
 import com.app.nationalpaints.R;
 import com.app.nationalpaints.activities_fragments.activity_home.fragments.Fragment_Home;
 import com.app.nationalpaints.activities_fragments.activity_home.fragments.Fragment_Profile;
+import com.app.nationalpaints.activities_fragments.activity_qr_code.QrCodeActivity;
 import com.app.nationalpaints.databinding.ActivityHomeBinding;
 import com.app.nationalpaints.language.Language;
 import com.app.nationalpaints.models.UserModel;
@@ -62,6 +63,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
+
         displayFragmentMain();
 
 
@@ -84,6 +86,11 @@ public class HomeActivity extends AppCompatActivity {
                     break;
             }
             return true;
+        });
+
+        binding.cardViewScanner.setOnClickListener(v -> {
+            Intent intent = new Intent(this, QrCodeActivity.class);
+            startActivity(intent);
         });
 
     }

@@ -29,4 +29,9 @@
     <string name="update_profile">Update profile</string>
     <string name="about_us">About us</string>
     <string name="please_scan_the_code_on_the_product_to_add_points">Please scan the code on the product to add points</string>
+    <string name="details">Details</string>
+    <string name="total_points">Total points</string>
+    <string name="exchanged_points">Exchanged points</string>
+    <string name="history">History</string>
+    <string name="last_month">Last month</string>
 </resources>

@@ -13,7 +13,10 @@ import androidx.fragment.app.Fragment;
 
 
 import com.app.nationalpaints.R;
+import com.app.nationalpaints.activities_fragments.activity_award.AwardActivity;
 import com.app.nationalpaints.activities_fragments.activity_home.HomeActivity;
+import com.app.nationalpaints.activities_fragments.activity_points.PointsActivity;
+import com.app.nationalpaints.activities_fragments.activity_shop_gallery.ShopGalleryActivity;
 import com.app.nationalpaints.adapters.SliderAdapter;
 import com.app.nationalpaints.databinding.FragmentHomeBinding;
 import com.app.nationalpaints.models.SliderModel;
@@ -61,7 +64,20 @@ public class Fragment_Home extends Fragment {
         Paper.init(activity);
         lang = Paper.book().read("lang", "ar");
         binding.setLang(lang);
+        binding.cardViewShops.setOnClickListener(v -> {
+            Intent intent = new Intent(activity, ShopGalleryActivity.class);
+            startActivity(intent);
+        });
 
+        binding.cardViewPoints.setOnClickListener(v -> {
+            Intent intent = new Intent(activity, PointsActivity.class);
+            startActivity(intent);
+        });
+
+        binding.cardViewGifts.setOnClickListener(v -> {
+            Intent intent = new Intent(activity, AwardActivity.class);
+            startActivity(intent);
+        });
 
 
     }
