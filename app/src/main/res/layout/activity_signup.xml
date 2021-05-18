@@ -121,7 +121,7 @@
                         android:padding="3dp"
 
 
-                        android:src="@drawable/ic_pin"
+                        android:src="@drawable/name"
                         app:tint="@color/colorAccent" />
 
                     <TextView
@@ -437,7 +437,7 @@
                         android:padding="3dp"
 
 
-                        android:src="@drawable/ic_pin"
+                        android:src="@drawable/map"
                         app:tint="@color/colorAccent" />
 
                     <TextView

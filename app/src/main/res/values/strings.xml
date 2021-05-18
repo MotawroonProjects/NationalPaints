@@ -48,4 +48,7 @@
     <string name="history">History</string>
     <string name="last_month">Last month</string>
     <string name="paints">Paints</string>
+    <string name="product_detials">Product Detials</string>
+    <string name="available_colors">Available Colors</string>
+    <string name="no_image" />
 </resources>
