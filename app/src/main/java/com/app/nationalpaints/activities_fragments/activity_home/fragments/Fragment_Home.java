@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 
 import com.app.nationalpaints.R;
@@ -17,6 +18,7 @@ import com.app.nationalpaints.activities_fragments.activity_award.AwardActivity;
 import com.app.nationalpaints.activities_fragments.activity_home.HomeActivity;
 import com.app.nationalpaints.activities_fragments.activity_points.PointsActivity;
 import com.app.nationalpaints.activities_fragments.activity_shop_gallery.ShopGalleryActivity;
+import com.app.nationalpaints.adapters.CategoryAdapter;
 import com.app.nationalpaints.adapters.SliderAdapter;
 import com.app.nationalpaints.databinding.FragmentHomeBinding;
 import com.app.nationalpaints.models.SliderModel;
@@ -78,7 +80,9 @@ public class Fragment_Home extends Fragment {
             Intent intent = new Intent(activity, AwardActivity.class);
             startActivity(intent);
         });
-
+binding.progBar.setVisibility(View.GONE);
+binding.recView.setLayoutManager(new GridLayoutManager(activity,2));
+binding.recView.setAdapter(new CategoryAdapter(activity));
 
     }
 

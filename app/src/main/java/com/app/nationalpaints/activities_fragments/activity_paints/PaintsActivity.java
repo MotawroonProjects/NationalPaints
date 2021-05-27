@@ -1,6 +1,7 @@
 package com.app.nationalpaints.activities_fragments.activity_paints;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +10,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.app.nationalpaints.R;
+import com.app.nationalpaints.activities_fragments.activity_home.HomeActivity;
+import com.app.nationalpaints.activities_fragments.activity_product_detials.ProductDetialsActivity;
 import com.app.nationalpaints.adapters.PaintsAdapter;
 import com.app.nationalpaints.adapters.PointsAdapter;
 import com.app.nationalpaints.databinding.ActivityPaintsBinding;
@@ -49,5 +52,10 @@ public class PaintsActivity extends AppCompatActivity {
         binding.recView.setItemAnimator(new DefaultItemAnimator());
         binding.llBack.setOnClickListener(v -> finish());
 
+    }
+
+    public void open() {
+        Intent intent=new Intent(PaintsActivity.this, ProductDetialsActivity.class);
+        startActivity(intent);
     }
 }

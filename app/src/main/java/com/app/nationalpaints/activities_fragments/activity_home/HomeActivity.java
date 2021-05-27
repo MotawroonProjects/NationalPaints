@@ -17,6 +17,7 @@ import com.app.nationalpaints.R;
 import com.app.nationalpaints.activities_fragments.activity_home.fragments.Fragment_Home;
 import com.app.nationalpaints.activities_fragments.activity_home.fragments.Fragment_Profile;
 import com.app.nationalpaints.activities_fragments.activity_notification.NotificationActivity;
+import com.app.nationalpaints.activities_fragments.activity_paints.PaintsActivity;
 import com.app.nationalpaints.activities_fragments.activity_qr_code.QrCodeActivity;
 import com.app.nationalpaints.databinding.ActivityHomeBinding;
 import com.app.nationalpaints.language.Language;
@@ -328,4 +329,8 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+    public void open() {
+        Intent intent=new Intent(HomeActivity.this, PaintsActivity.class);
+        startActivity(intent);
+    }
 }
