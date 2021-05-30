@@ -6,17 +6,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.app.nationalpaints.R;
+import com.app.nationalpaints.activities_fragments.activity_home.HomeActivity;
 import com.app.nationalpaints.activities_fragments.activity_sign_up.SignUpActivity;
 import com.app.nationalpaints.databinding.ActivityVerificationCodeBinding;
 import com.app.nationalpaints.language.Language;
+import com.app.nationalpaints.models.UserModel;
 import com.app.nationalpaints.preferences.Preferences;
+import com.app.nationalpaints.remote.Api;
 import com.app.nationalpaints.share.Common;
+import com.app.nationalpaints.tags.Tags;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
@@ -85,7 +90,8 @@ public class VerificationCodeActivity extends AppCompatActivity {
         });
         binding.btnConfirm.setOnClickListener(view -> {
             String code = binding.edtCode.getText().toString().trim();
-            navigateToSignUpActivity();
+            //navigateToSignUpActivity();
+            login();
             if (!code.isEmpty()) {
                 binding.edtCode.setError(null);
                 Common.CloseKeyBoard(this, binding.edtCode);
@@ -184,62 +190,60 @@ public class VerificationCodeActivity extends AppCompatActivity {
     }
 
     private void login() {
-navigateToSignUpActivity();
-//        ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
-//        dialog.setCancelable(false);
-//        dialog.show();
-//        Api.getService(Tags.base_url)
-//                .login(phone_code, phone)
-//                .enqueue(new Callback<UserModel>() {
-//                    @Override
-//                    public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-//                        dialog.dismiss();
-//                        if (response.isSuccessful()&&response.body()!=null) {
-//                            if (response.body().getStatus()==200){
-//                                preferences.create_update_userdata(VerificationCodeActivity.this, response.body());
-//                                navigateToHomeActivity();
-//                            }else  if (response.body().getStatus()==404){
-//                                navigateToSignUpActivity();
-//                            }else if (response.body().getStatus()==422){
-//                            //    Toast.makeText(VerificationCodeActivity.this, R.string.user_blocked, Toast.LENGTH_SHORT).show();
-//                            }
-//
-//                        } else {
-//
-//                            if (response.code() == 500) {
-//                              //  Toast.makeText(VerificationCodeActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
-//                            }else {
-//                                //Toast.makeText(VerificationCodeActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
-//                            }
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<UserModel> call, Throwable t) {
-//                        try {
-//                            dialog.dismiss();
-//                            if (t.getMessage() != null) {
-//                                Log.e("msg_category_error", t.getMessage() + "__");
-//
-//                                if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
-//                                  //  Toast.makeText(VerificationCodeActivity.this, getString(R.string.something), Toast.LENGTH_SHORT).show();
-//                                } else {
-//                                    //Toast.makeText(VerificationCodeActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
-//                                }
-//                            }
-//                        } catch (Exception e) {
-//                            Log.e("Error", e.getMessage() + "__");
-//                        }
-//                    }
-//                });
-navigateToSignUpActivity();
+        ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
+        dialog.setCancelable(false);
+        dialog.show();
+        Api.getService(Tags.base_url)
+                .login(phone_code, phone)
+                .enqueue(new Callback<UserModel>() {
+                    @Override
+                    public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                        dialog.dismiss();
+                        if (response.isSuccessful()&&response.body()!=null) {
+                            if (response.body().getStatus()==200){
+                                preferences.create_update_userdata(VerificationCodeActivity.this, response.body());
+                                navigateToHomeActivity();
+                            }else  if (response.body().getStatus()==404){
+                                navigateToSignUpActivity();
+                            }else if (response.body().getStatus()==406){
+                                Toast.makeText(VerificationCodeActivity.this, R.string.user_blocked, Toast.LENGTH_SHORT).show();
+                            }
+
+                        } else {
+
+                            if (response.code() == 500) {
+                              //  Toast.makeText(VerificationCodeActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+                            }else {
+                                //Toast.makeText(VerificationCodeActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<UserModel> call, Throwable t) {
+                        try {
+                            dialog.dismiss();
+                            if (t.getMessage() != null) {
+                                Log.e("msg_category_error", t.getMessage() + "__");
+
+                                if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
+                                  //  Toast.makeText(VerificationCodeActivity.this, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                                } else {
+                                    //Toast.makeText(VerificationCodeActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        } catch (Exception e) {
+                            Log.e("Error", e.getMessage() + "__");
+                        }
+                    }
+                });
     }
 
 
     private void navigateToHomeActivity() {
-//        Intent intent = new Intent(this, HomeActivity.class);
-//        startActivity(intent);
-//        finish();
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void navigateToSignUpActivity() {

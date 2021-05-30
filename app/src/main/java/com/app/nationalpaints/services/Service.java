@@ -1,6 +1,10 @@
 package com.app.nationalpaints.services;
 
 
+import com.app.nationalpaints.models.AreaModel;
+import com.app.nationalpaints.models.GovernmentModel;
+import com.app.nationalpaints.models.PlaceGeocodeData;
+import com.app.nationalpaints.models.PlaceMapDetailsData;
 import com.app.nationalpaints.models.UserModel;
 
 import java.util.List;
@@ -21,6 +25,18 @@ import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 
 public interface Service {
+    @GET("place/findplacefromtext/json")
+    Call<PlaceMapDetailsData> searchOnMap(@Query(value = "inputtype") String inputtype,
+                                          @Query(value = "input") String input,
+                                          @Query(value = "fields") String fields,
+                                          @Query(value = "language") String language,
+                                          @Query(value = "key") String key
+    );
+
+    @GET("geocode/json")
+    Call<PlaceGeocodeData> getGeoData(@Query(value = "latlng") String latlng,
+                                      @Query(value = "language") String language,
+                                      @Query(value = "key") String key);
 
 
 
@@ -33,33 +49,44 @@ public interface Service {
 
     @FormUrlEncoded
     @POST("api/register")
-    Call<UserModel> signUpWithoutImage(@Field("name") String name,
+    Call<UserModel> signUpWithoutImage(@Field("first_name") String first_name,
+                                       @Field("second_name") String second_name,
+                                       @Field("last_name") String last_name,
                                        @Field("phone_code") String phone_code,
                                        @Field("phone") String phone,
-                                       @Field("email") String email,
-
+                                       @Field("national_ID") String national_ID,
                                        @Field("address") String address,
                                        @Field("latitude") double latitude,
                                        @Field("longitude") double longitude,
+                                       @Field("governorate_id") String governorate_id,
+                                       @Field("city_id") String city_id,
                                        @Field("software_type") String software_type
     );
 
     @Multipart
     @POST("api/register")
-    Call<UserModel> signUpWithImage(@Part("name") RequestBody name,
+    Call<UserModel> signUpWithImage(@Part("first_name") RequestBody first_name,
+                                    @Part("second_name") RequestBody second_name,
+                                    @Part("last_name") RequestBody last_name,
                                     @Part("phone_code") RequestBody phone_code,
                                     @Part("phone") RequestBody phone,
-                                    @Part("email") RequestBody email,
+                                    @Part("national_ID") RequestBody national_ID,
                                     @Part("address") RequestBody address,
                                     @Part("latitude") RequestBody latitude,
                                     @Part("longitude") RequestBody longitude,
+                                    @Part("governorate_id") RequestBody governorate_id,
+                                    @Part("city_id") RequestBody city_id,
                                     @Part("software_type") RequestBody software_type,
                                     @Part MultipartBody.Part logo
 
 
     );
 
-
+    @GET("api/allGovernorates")
+    Call<GovernmentModel> getGovernate();
+    @FormUrlEncoded
+    @POST("api/citiesByGovernorateId")
+    Call<AreaModel> getArea(@Field("governorate_id")int governorate_id);
 
 
 

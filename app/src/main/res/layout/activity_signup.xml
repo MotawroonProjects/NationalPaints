@@ -27,15 +27,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
-            android:fillViewport="true"
-           >
+            android:fillViewport="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="3dp"
-                >
+                android:padding="3dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -51,7 +49,6 @@
                         android:layout_height="130dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="20dp"
-                        android:onClick="@{()->listener.openSheet()}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -139,9 +136,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginTop="20dp"
-                    >
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -150,18 +146,19 @@
                         android:orientation="vertical">
 
                         <EditText
+                            error="@{model.error_first_name}"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="8dp"
-                            error="@{model.error_first_name}"
-                            android:text="@={model.first_name}"
-
                             android:background="@color/transparent"
+
                             android:gravity="center"
                             android:hint="@string/first"
                             android:paddingLeft="8dp"
                             android:paddingRight="8dp"
+                            android:singleLine="true"
+                            android:text="@={model.first_name}"
                             android:textColor="@color/black"
                             android:textColorHint="@color/gray16"
                             android:textSize="14sp"
@@ -182,18 +179,18 @@
                         android:orientation="vertical">
 
                         <EditText
+                            error="@{model.error_seconed_name}"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="8dp"
-                            error="@{model.error_seconed_name}"
-                            android:text="@={model.seconed_name}"
-
                             android:background="@color/transparent"
                             android:gravity="center"
                             android:hint="@string/seconed"
                             android:paddingLeft="8dp"
                             android:paddingRight="8dp"
+                            android:singleLine="true"
+                            android:text="@={model.seconed_name}"
                             android:textColor="@color/black"
                             android:textColorHint="@color/gray16"
                             android:textSize="14sp"
@@ -214,18 +211,18 @@
                         android:orientation="vertical">
 
                         <EditText
+                            error="@{model.error_third_name}"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="8dp"
                             android:background="@color/transparent"
-                            error="@{model.error_third_name}"
-                            android:text="@={model.third_name}"
-
                             android:gravity="center"
                             android:hint="@string/third"
                             android:paddingLeft="8dp"
                             android:paddingRight="8dp"
+                            android:singleLine="true"
+                            android:text="@={model.third_name}"
                             android:textColor="@color/black"
                             android:textColorHint="@color/gray16"
                             android:textSize="14sp"
@@ -271,25 +268,26 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_marginTop="20dp"
-                    >
+                    android:orientation="vertical">
 
                     <EditText
                         android:id="@+id/edtNational"
+                        error="@{model.error_national}"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
+                        android:ems="14"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
-                        error="@{model.error_national}"
-                        android:text="@={model.national_num}"
-
                         android:background="@color/transparent"
                         android:gravity="center_vertical"
                         android:hint="@string/enter_the_14_digit_number"
                         android:inputType="number"
+                        android:maxLength="14"
+
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
+                        android:text="@={model.national_num}"
                         android:textColor="@color/black"
                         android:textColorHint="@color/gray16"
                         android:textSize="14sp"
@@ -335,9 +333,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_marginTop="20dp"
-                    >
+                    android:orientation="vertical">
 
                     <FrameLayout
                         android:layout_width="match_parent"
@@ -346,6 +343,7 @@
                         android:layout_marginEnd="20dp">
 
                         <Spinner
+                            android:id="@+id/spGovernate"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -395,9 +393,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_marginTop="20dp"
-                    >
+                    android:orientation="vertical">
 
                     <FrameLayout
                         android:layout_width="match_parent"
@@ -406,6 +403,7 @@
                         android:layout_marginEnd="20dp">
 
                         <Spinner
+                            android:id="@+id/spArea"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -464,12 +462,12 @@
 
                     <TextView
                         android:id="@+id/tvLocation"
+                        error="@{model.error_address}"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@color/transparent"
                         android:gravity="center_vertical"
-                        error="@{model.error_address}"
 
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
@@ -485,8 +483,8 @@
                         android:layout_marginStart="2dp"
                         android:layout_marginEnd="2dp"
                         android:padding="3dp"
-                        app:riv_corner_radius="5dp"
-                        android:src="@drawable/location" />
+                        android:src="@drawable/location"
+                        app:riv_corner_radius="5dp" />
 
                 </LinearLayout>
 
@@ -496,6 +494,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
                     android:background="@color/gray13" />
+
                 <Button
                     android:id="@+id/btnSignup"
                     android:layout_width="wrap_content"
@@ -511,6 +510,7 @@
 
             </LinearLayout>
         </ScrollView>
+
         <net.cachapa.expandablelayout.ExpandableLayout
             android:id="@+id/expandLayout"
             android:layout_width="match_parent"

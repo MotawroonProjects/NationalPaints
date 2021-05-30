@@ -51,4 +51,11 @@
     <string name="product_detials">Product Detials</string>
     <string name="available_colors">Available Colors</string>
     <string name="no_image">No Images</string>
+    <string name="wait">Wait</string>
+    <string name="user_blocked">User Blocked</string>
+    <string name="country_code">Country Code</string>
+    <string name="egypt">Egypt</string>
+    <string name="saudi_arabia">Saudi Arabia</string>
+    <string name="select_location_on_map">Select Location On Map</string>
+    <string name="user_exist">User Exist</string>
 </resources>
