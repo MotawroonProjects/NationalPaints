@@ -3,8 +3,12 @@ package com.app.nationalpaints.services;
 
 import com.app.nationalpaints.models.AreaModel;
 import com.app.nationalpaints.models.GovernmentModel;
+import com.app.nationalpaints.models.MyPointsDataModel;
 import com.app.nationalpaints.models.PlaceGeocodeData;
 import com.app.nationalpaints.models.PlaceMapDetailsData;
+import com.app.nationalpaints.models.PrizeDataModel;
+import com.app.nationalpaints.models.SliderDataModel;
+import com.app.nationalpaints.models.StatusResponse;
 import com.app.nationalpaints.models.UserModel;
 
 import java.util.List;
@@ -37,7 +41,6 @@ public interface Service {
     Call<PlaceGeocodeData> getGeoData(@Query(value = "latlng") String latlng,
                                       @Query(value = "language") String language,
                                       @Query(value = "key") String key);
-
 
 
     @FormUrlEncoded
@@ -84,11 +87,34 @@ public interface Service {
 
     @GET("api/allGovernorates")
     Call<GovernmentModel> getGovernate();
+
     @FormUrlEncoded
     @POST("api/citiesByGovernorateId")
-    Call<AreaModel> getArea(@Field("governorate_id")int governorate_id);
+    Call<AreaModel> getArea(@Field("governorate_id") int governorate_id);
 
 
+    @GET("api/sliders")
+    Call<SliderDataModel> getSlider();
+
+    @GET("api/getMyPoints")
+    Call<MyPointsDataModel> getMyPoints(@Header("Authorization") String user_token,
+                                        @Query("from_date") String from_date,
+                                        @Query("to_date") String to_date,
+                                        @Query("order_by") String order_by
+    );
+
+    @GET("api/getAllPrizes")
+    Call<PrizeDataModel> getPrize();
+
+
+    @FormUrlEncoded
+    @POST("api/changePointWithPrize")
+    Call<StatusResponse> exchangePoints(@Header("Authorization") String user_token,
+                                        @Field("prize_id") int prize_id
+                                   );
+
+    @GET("api/getCurrentUserData")
+    Call<UserModel> getUserById(@Header("Authorization") String user_token);
 
 }
 

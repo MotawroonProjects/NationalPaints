@@ -9,6 +9,9 @@
         <variable
             name="lang"
             type="String" />
+        <variable
+            name="model"
+            type="com.app.nationalpaints.models.UserModel" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -101,7 +104,7 @@
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
                             android:textColor="@color/color4"
-                            android:text="3530"
+                            android:text="@{String.valueOf(model.data.total_points_balance)}"
                             android:textStyle="bold"
                             android:singleLine="true"
                             android:background="@drawable/rounded_color6"
@@ -138,7 +141,7 @@
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
                             android:textColor="@color/colorPrimary"
-                            android:text="1000"
+                            android:text="@{String.valueOf(model.data.exchange_points_balance)}"
                             android:textStyle="bold"
                             android:singleLine="true"
                             android:background="@drawable/rounded_color9"
@@ -172,7 +175,7 @@
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
                             android:textColor="@color/color5"
-                            android:text="2530"
+                            android:text="@{String.valueOf(model.data.current_points_balance)}"
                             android:textStyle="bold"
                             android:singleLine="true"
                             android:background="@drawable/rounded_color10"
@@ -224,6 +227,7 @@
                         android:padding="3dp"
                         />
                     <TextView
+                        android:id="@+id/tvDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"

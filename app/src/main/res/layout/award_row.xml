@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="model"
+            type="com.app.nationalpaints.models.MyPointsModel.Prize" />
+
+    </data>
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,6 +27,7 @@
                android:layout_width="100dp"
                android:layout_height="100dp"
                android:layout_gravity="center"
+               image="@{model.image}"
                />
            <TextView
                android:layout_width="wrap_content"
@@ -29,7 +38,8 @@
                android:textSize="14sp"
                android:textColor="@color/black"
                android:layout_gravity="center"
-               android:text="100 نقطة"
+               android:text='@{model.points_count+@string/point}'
+
                />
        </LinearLayout>
     </androidx.cardview.widget.CardView>

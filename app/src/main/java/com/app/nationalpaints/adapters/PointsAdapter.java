@@ -13,15 +13,16 @@ import com.app.nationalpaints.activities_fragments.activity_points.PointsActivit
 import com.app.nationalpaints.activities_fragments.activity_shop_gallery.ShopGalleryActivity;
 import com.app.nationalpaints.databinding.PointsRowBinding;
 import com.app.nationalpaints.databinding.ShopGalleryRowBinding;
+import com.app.nationalpaints.models.MyPointsModel;
 
 import java.util.List;
 
 public class PointsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private List<Object> list;
+    private List<MyPointsModel> list;
     private Context context;
     private LayoutInflater inflater;
     private PointsActivity activity;
-    public PointsAdapter(List<Object> list, Context context) {
+    public PointsAdapter(List<MyPointsModel> list, Context context) {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);
@@ -41,14 +42,14 @@ public class PointsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, int position) {
         MyHolder myHolder = (MyHolder) holder;
-
+        myHolder.binding.setModel(list.get(position));
 
 
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return list.size();
     }
 
     public static class MyHolder extends RecyclerView.ViewHolder {

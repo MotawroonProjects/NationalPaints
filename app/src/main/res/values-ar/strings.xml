@@ -51,11 +51,18 @@
     <string name="product_detials">تفاصيل المنتج</string>
     <string name="available_colors">الالوان المتاحه</string>
     <string name="no_image">لا يوجد صور</string>
-    <string name="wait">Wait</string>
-    <string name="user_blocked">User Blocked</string>
-    <string name="country_code">Country Code</string>
-    <string name="egypt">Egypt</string>
-    <string name="saudi_arabia">Saudi Arabia</string>
-    <string name="select_location_on_map">Select Location On Map</string>
-    <string name="user_exist">User Exist</string>
+    <string name="wait">إنتظر قليلا...</string>
+    <string name="user_blocked">تم حظر المستخدم</string>
+    <string name="country_code">كود الدولة</string>
+    <string name="egypt">مصر</string>
+    <string name="saudi_arabia">السعودية</string>
+    <string name="select_location_on_map">حدد الموقع على الخريطة</string>
+    <string name="user_exist">المستخدم موجود من قبل</string>
+    <string name="select">إختر</string>
+    <string name="point">نقطة</string>
+    <string name="exchange_points">هل أنت متأكد من إستبدال النقاط؟</string>
+    <string name="yes">نعم</string>
+    <string name="no">لا</string>
+    <string name="we_will_contact">سيتم التواصل معك لاستلام الجائزة</string>
+    <string name="no_enough_points">لا يوجد نقاط كافية</string>
 </resources>

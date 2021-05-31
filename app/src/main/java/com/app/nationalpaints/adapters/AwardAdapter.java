@@ -13,15 +13,16 @@ import com.app.nationalpaints.activities_fragments.activity_award.AwardActivity;
 import com.app.nationalpaints.activities_fragments.activity_points.PointsActivity;
 import com.app.nationalpaints.databinding.AwardRowBinding;
 import com.app.nationalpaints.databinding.PointsRowBinding;
+import com.app.nationalpaints.models.MyPointsModel;
 
 import java.util.List;
 
 public class AwardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private List<Object> list;
+    private List<MyPointsModel.Prize> list;
     private Context context;
     private LayoutInflater inflater;
     private AwardActivity activity;
-    public AwardAdapter(List<Object> list, Context context) {
+    public AwardAdapter(List<MyPointsModel.Prize> list, Context context) {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);
@@ -41,14 +42,16 @@ public class AwardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, int position) {
         MyHolder myHolder = (MyHolder) holder;
-
-
+        myHolder.binding.setModel(list.get(position));
+        myHolder.itemView.setOnClickListener(v -> {
+            activity.openSheet(list.get(myHolder.getAdapterPosition()));
+        });
 
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return list.size();
     }
 
     public static class MyHolder extends RecyclerView.ViewHolder {

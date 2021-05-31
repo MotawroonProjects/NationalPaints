@@ -27,9 +27,9 @@ public class UserModel extends StatusResponse implements Serializable {
     private double longitude;
     private int governorate_id;
     private int city_id;
-    private double exchange_points_balance;
-    private double current_points_balance;
-    private double total_points_balance;
+    private int exchange_points_balance;
+    private int current_points_balance;
+    private int total_points_balance;
     private String is_confirmed;
     private String is_block;
     private String is_login;
@@ -108,15 +108,15 @@ public class UserModel extends StatusResponse implements Serializable {
         return city_id;
     }
 
-    public double getExchange_points_balance() {
+    public int getExchange_points_balance() {
         return exchange_points_balance;
     }
 
-    public double getCurrent_points_balance() {
+    public int getCurrent_points_balance() {
         return current_points_balance;
     }
 
-    public double getTotal_points_balance() {
+    public int getTotal_points_balance() {
         return total_points_balance;
     }
 

@@ -92,13 +92,13 @@ public class VerificationCodeActivity extends AppCompatActivity {
             String code = binding.edtCode.getText().toString().trim();
             //navigateToSignUpActivity();
             login();
-            if (!code.isEmpty()) {
+           /* if (!code.isEmpty()) {
                 binding.edtCode.setError(null);
                 Common.CloseKeyBoard(this, binding.edtCode);
                 checkValidCode(code);
             } else {
                 binding.edtCode.setError(getString(R.string.field_required));
-            }
+            }*/
 
         });
         sendSmsCode();
@@ -200,6 +200,8 @@ public class VerificationCodeActivity extends AppCompatActivity {
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                         dialog.dismiss();
                         if (response.isSuccessful()&&response.body()!=null) {
+                            Log.e("code", response.body().getStatus()+"__");
+
                             if (response.body().getStatus()==200){
                                 preferences.create_update_userdata(VerificationCodeActivity.this, response.body());
                                 navigateToHomeActivity();
