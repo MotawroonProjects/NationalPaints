@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 
 import com.app.nationalpaints.R;
@@ -21,6 +22,7 @@ import com.app.nationalpaints.databinding.ActivityQrCodeBinding;
 import com.app.nationalpaints.databinding.ActivityShopGalleryBinding;
 import com.app.nationalpaints.language.Language;
 import com.app.nationalpaints.models.GovernmentModel;
+import com.app.nationalpaints.models.MyPointsModel;
 import com.app.nationalpaints.models.ShopGalleryDataModel;
 import com.app.nationalpaints.models.ShopGalleryModel;
 import com.app.nationalpaints.models.UserModel;
@@ -46,6 +48,7 @@ public class ShopGalleryActivity extends AppCompatActivity {
     private List<GovernmentModel.Data> governmentList;
     private ShopGalleryAdapter adapter;
     private SpinnerGovernateAdapter spinnerCountryAdapter;
+    private  ShopGalleryModel selectedModel;
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
         super.attachBaseContext(Language.updateResources(newBase, Paper.book().read("lang", "ar")));
@@ -219,6 +222,64 @@ public class ShopGalleryActivity extends AppCompatActivity {
             spinnerCountryAdapter.notifyDataSetChanged();
         }
 
+
+    }
+
+    public void openSheet(ShopGalleryModel shopGalleryModel) {
+        this.selectedModel = shopGalleryModel;
+        binding.setModel(shopGalleryModel);
+
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.slide_up);
+
+        binding.flSheet.clearAnimation();
+        binding.flSheet.startAnimation(animation);
+
+
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                binding.flSheet.setVisibility(View.VISIBLE);
+
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+    }
+
+    private void closeSheet() {
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.slide_down);
+
+        binding.flSheet.clearAnimation();
+        binding.flSheet.startAnimation(animation);
+
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                binding.flSheet.setVisibility(View.GONE);
+
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
 
     }
 

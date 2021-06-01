@@ -64,7 +64,9 @@ public class ShopGalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         MyHolder myHolder = (MyHolder) holder;
         myHolder.binding.setLang(lang);
         myHolder.binding.setModel(list.get(position));
-
+        myHolder.binding.tvDetails.setOnClickListener(v -> {
+            activity.openSheet(list.get(myHolder.getAdapterPosition()));
+        });
 
     }
 
