@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.app.nationalpaints.R;
 import com.app.nationalpaints.activities_fragments.activity_shop_gallery.ShopGalleryActivity;
 import com.app.nationalpaints.databinding.ShopGalleryRowBinding;
+import com.app.nationalpaints.models.ShopGalleryModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,16 +32,21 @@ import java.util.List;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
+import io.paperdb.Paper;
+
 public class ShopGalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private List<Object> list;
+    private List<ShopGalleryModel> list;
     private Context context;
     private LayoutInflater inflater;
     private ShopGalleryActivity activity;
-    public ShopGalleryAdapter(List<Object> list, Context context) {
+    private String lang = "ar";
+    public ShopGalleryAdapter(List<ShopGalleryModel> list, Context context) {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);
         activity = (ShopGalleryActivity) context;
+        Paper.init(context);
+        lang = Paper.book().read("lang","ar");
     }
 
 
@@ -56,14 +62,15 @@ public class ShopGalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, int position) {
         MyHolder myHolder = (MyHolder) holder;
-
+        myHolder.binding.setLang(lang);
+        myHolder.binding.setModel(list.get(position));
 
 
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return list.size();
     }
 
     public static class MyHolder extends RecyclerView.ViewHolder {

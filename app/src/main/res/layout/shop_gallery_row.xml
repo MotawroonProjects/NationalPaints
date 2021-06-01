@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="model"
+            type="com.app.nationalpaints.models.ShopGalleryModel" />
+        <variable
+            name="lang"
+            type="String" />
+    </data>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,7 +31,7 @@
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:maxLines="2"
-                android:text="معرض الحرية"
+                android:text="@{model.title}"
                 />
 
             <TextView
@@ -56,7 +64,7 @@
                 android:paddingEnd="5dp"
                 android:textSize="14sp"
                 android:textColor="@color/gray12"
-                android:text="القاهرة"
+                android:text='@{lang.equals("ar")?model.governorate.governorate_name_ar:model.governorate.governorate_name_en}'
                 android:layout_gravity="center_vertical"
                 />
         </LinearLayout>
@@ -84,7 +92,7 @@
                 android:paddingEnd="5dp"
                 android:textSize="14sp"
                 android:textColor="@color/gray12"
-                android:text="المعادي/ شارع الجامعة"
+                android:text='@{model.address+"/"+(lang.equals("ar")?model.city.city_name_ar:model.city.city_name_en)}'
                 android:layout_gravity="center_vertical"
                 android:gravity="start"
                 android:textAlignment="viewStart"
@@ -97,7 +105,6 @@
                 android:paddingEnd="5dp"
                 android:textSize="14sp"
                 android:textColor="@color/color1"
-                android:text="20 كم"
                 android:layout_gravity="center_vertical"
                 android:gravity="start"
                 android:textAlignment="viewStart"

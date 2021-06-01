@@ -7,6 +7,8 @@ import com.app.nationalpaints.models.MyPointsDataModel;
 import com.app.nationalpaints.models.PlaceGeocodeData;
 import com.app.nationalpaints.models.PlaceMapDetailsData;
 import com.app.nationalpaints.models.PrizeDataModel;
+import com.app.nationalpaints.models.ShopGalleryDataModel;
+import com.app.nationalpaints.models.ShopGalleryModel;
 import com.app.nationalpaints.models.SliderDataModel;
 import com.app.nationalpaints.models.StatusResponse;
 import com.app.nationalpaints.models.UserModel;
@@ -116,5 +118,8 @@ public interface Service {
     @GET("api/getCurrentUserData")
     Call<UserModel> getUserById(@Header("Authorization") String user_token);
 
+
+    @GET("api/getAllColorShows")
+    Call<ShopGalleryDataModel> getShopGallery(@Query("governorate_id") String governorate_id);
 }
 
