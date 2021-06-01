@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -90,6 +92,24 @@ public class ShopGalleryActivity extends AppCompatActivity {
         });
         updateGovernateData(new ArrayList<>());
         getGovernate();
+
+        binding.imageCall.setOnClickListener(v -> {
+            String number = "";
+
+            if (selectedModel!=null){
+                if (selectedModel.getPhone_number1()!=null){
+                    number = selectedModel.getPhone_number1();
+                }else if (selectedModel.getPhone_number2()!=null){
+                    number = selectedModel.getPhone_number2();
+
+                }
+            }
+
+            if (!number.isEmpty()){
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+number));
+                startActivity(intent);
+            }
+        });
     }
 
     private void getData(String governate_id) {
@@ -283,4 +303,12 @@ public class ShopGalleryActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        if (binding.flSheet.getVisibility()==View.VISIBLE){
+            closeSheet();
+        }else {
+            finish();
+        }
+    }
 }
