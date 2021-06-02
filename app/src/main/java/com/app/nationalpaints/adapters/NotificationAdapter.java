@@ -60,6 +60,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return list.size();
     }
 
+
     public static class MyHolder extends RecyclerView.ViewHolder {
         public NotificationRowBinding binding;
 
