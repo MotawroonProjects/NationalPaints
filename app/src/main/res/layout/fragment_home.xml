@@ -16,6 +16,9 @@
             type="String"
 
             />
+        <variable
+            name="model"
+            type="com.app.nationalpaints.models.UserModel" />
     </data>
 
     <ScrollView
@@ -103,7 +106,7 @@
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/white"
                                 android:textSize="22sp"
-                                android:text="125252"
+                                android:text="@{String.valueOf(model.data.current_points_balance)}"
                                 android:textStyle="bold"
                                 android:singleLine="true"
                                 android:layout_gravity="center_vertical"

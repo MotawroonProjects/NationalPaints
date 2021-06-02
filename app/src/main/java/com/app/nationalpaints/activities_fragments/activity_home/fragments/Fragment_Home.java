@@ -19,10 +19,13 @@ import com.app.nationalpaints.R;
 import com.app.nationalpaints.activities_fragments.activity_award.AwardActivity;
 import com.app.nationalpaints.activities_fragments.activity_home.HomeActivity;
 import com.app.nationalpaints.activities_fragments.activity_points.PointsActivity;
+import com.app.nationalpaints.activities_fragments.activity_product_detials.ProductDetialsActivity;
 import com.app.nationalpaints.activities_fragments.activity_shop_gallery.ShopGalleryActivity;
 import com.app.nationalpaints.adapters.CategoryAdapter;
 import com.app.nationalpaints.adapters.SliderAdapter;
 import com.app.nationalpaints.databinding.FragmentHomeBinding;
+import com.app.nationalpaints.models.CategoryDataModel;
+import com.app.nationalpaints.models.CategoryModel;
 import com.app.nationalpaints.models.SliderDataModel;
 import com.app.nationalpaints.models.SliderModel;
 import com.app.nationalpaints.models.UserModel;
@@ -50,6 +53,8 @@ public class Fragment_Home extends Fragment {
     private UserModel userModel;
     private SliderAdapter sliderAdapter;
     private List<SliderModel> sliderModelList;
+    private List<CategoryModel> categoryModelList;
+    private CategoryAdapter adapter;
     private Timer timer;
     private TimerTask timerTask;
 
@@ -68,6 +73,7 @@ public class Fragment_Home extends Fragment {
 
 
     private void initView() {
+        categoryModelList = new ArrayList<>();
         sliderModelList = new ArrayList<>();
         activity = (HomeActivity) getActivity();
         preferences = Preferences.getInstance();
@@ -91,10 +97,58 @@ public class Fragment_Home extends Fragment {
         });
         binding.progBar.setVisibility(View.GONE);
         binding.recView.setLayoutManager(new GridLayoutManager(activity, 2));
-        binding.recView.setAdapter(new CategoryAdapter(activity));
+        adapter = new CategoryAdapter(activity,categoryModelList,this);
+        binding.recView.setAdapter(adapter);
 
 
+
+        getUserData();
         getSlider();
+        getCategory();
+    }
+
+    private void getCategory() {
+        Api.getService(Tags.base_url)
+                .getCategory()
+                .enqueue(new Callback<CategoryDataModel>() {
+                    @Override
+                    public void onResponse(Call<CategoryDataModel> call, Response<CategoryDataModel> response) {
+                        binding.progBar.setVisibility(View.GONE);
+                        if (response.isSuccessful() && response.body() != null) {
+                            if (response.body().getData().size() > 0) {
+                                binding.tvNoData.setVisibility(View.GONE);
+                                categoryModelList.clear();
+                                categoryModelList.addAll(response.body().getData());
+                                adapter.notifyDataSetChanged();
+
+                            } else {
+                                binding.tvNoData.setVisibility(View.VISIBLE);
+
+                            }
+
+                        } else {
+                            binding.progBar.setVisibility(View.GONE);
+
+                            try {
+                                Log.e("error_code", response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<CategoryDataModel> call, Throwable t) {
+                        try {
+                            Log.e("Error", t.getMessage());
+                            binding.progBar.setVisibility(View.GONE);
+                        } catch (Exception e) {
+
+                        }
+                    }
+                });
     }
 
     private void getSlider() {
@@ -142,7 +196,7 @@ public class Fragment_Home extends Fragment {
 
     private void updateSliderUi(List<SliderModel> data) {
         sliderModelList.addAll(data);
-        sliderAdapter = new SliderAdapter(sliderModelList, activity);
+        sliderAdapter = new SliderAdapter(sliderModelList, activity,this);
         binding.pager.setAdapter(sliderAdapter);
         binding.pager.setClipToPadding(false);
         binding.pager.setPadding(90, 8, 90, 8);
@@ -155,6 +209,62 @@ public class Fragment_Home extends Fragment {
             timer.scheduleAtFixedRate(timerTask, 6000, 6000);
         }
     }
+
+    public void setItemProduct(SliderModel sliderModel) {
+        if (sliderModel.getProduct()!=null){
+            Log.e("ddd", sliderModel.getProduct().getId()+"__");
+            Intent intent = new Intent(activity, ProductDetialsActivity.class);
+            intent.putExtra("data", sliderModel.getProduct().getId());
+            startActivity(intent);
+        }
+
+    }
+
+
+    public void getUserData(){
+        Api.getService(Tags.base_url)
+                .getUserById("Bearer " + userModel.getData().getToken())
+                .enqueue(new Callback<UserModel>() {
+                    @Override
+                    public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                        if (response.isSuccessful()) {
+                            if (response.body() != null && response.body().getStatus() == 200) {
+                                userModel = response.body();
+                                preferences.create_update_userdata(activity,userModel);
+                                binding.setModel(userModel);
+                            }
+
+                        } else {
+                            try {
+                                Log.e("error", response.code() + "__" + response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            if (response.code() == 500) {
+                            } else {
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<UserModel> call, Throwable t) {
+                        try {
+                            if (t.getMessage() != null) {
+                                Log.e("error", t.getMessage() + "__");
+
+                                if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
+                                } else {
+                                }
+                            }
+                        } catch (Exception e) {
+                            Log.e("Error", e.getMessage() + "__");
+                        }
+                    }
+                });
+
+    }
+
 
     public class MyTask extends TimerTask {
         @Override

@@ -25,6 +25,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
+            android:name=".activities_fragments.activity_view.ViewActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".activities_fragments.activity_sign_up.SignUpActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:windowSoftInputMode="adjustResize" />

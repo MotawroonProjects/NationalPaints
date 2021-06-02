@@ -1,6 +1,7 @@
 package com.app.nationalpaints.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -13,15 +14,16 @@ import com.app.nationalpaints.R;
 import com.app.nationalpaints.activities_fragments.activity_paints.PaintsActivity;
 import com.app.nationalpaints.databinding.ColorsRowBinding;
 import com.app.nationalpaints.databinding.PaintRowBinding;
+import com.app.nationalpaints.models.ProductModel;
 
 import java.util.List;
 
 public class ColorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private List<Object> list;
+    private List<ProductModel.Color> list;
     private Context context;
     private LayoutInflater inflater;
-    public ColorsAdapter( Context context) {
-        //this.list = list;
+    public ColorsAdapter( Context context,List<ProductModel.Color> list) {
+        this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);
     }
@@ -40,13 +42,14 @@ public class ColorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, int position) {
         MyHolder myHolder = (MyHolder) holder;
 
+        myHolder.binding.cardView.setCardBackgroundColor(Color.parseColor(list.get(position).getColor_code()));
 
 
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return list.size();
     }
 
     public static class MyHolder extends RecyclerView.ViewHolder {

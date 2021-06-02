@@ -3,6 +3,8 @@ package com.app.nationalpaints.activities_fragments.activity_notification;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -14,15 +16,22 @@ import com.app.nationalpaints.R;
 import com.app.nationalpaints.adapters.NotificationAdapter;
 import com.app.nationalpaints.databinding.ActivityNotificationBinding;
 import com.app.nationalpaints.language.Language;
+import com.app.nationalpaints.models.NotificationDataModel;
 import com.app.nationalpaints.models.NotificationModel;
 import com.app.nationalpaints.models.UserModel;
 import com.app.nationalpaints.preferences.Preferences;
+import com.app.nationalpaints.remote.Api;
+import com.app.nationalpaints.tags.Tags;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import io.paperdb.Paper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class NotificationActivity extends AppCompatActivity {
     private ActivityNotificationBinding binding;
@@ -71,7 +80,7 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     private void getNotifications() {
-      /*  try {
+        try {
             binding.progBar.setVisibility(View.VISIBLE);
 
             if (userModel == null) {
@@ -82,7 +91,7 @@ public class NotificationActivity extends AppCompatActivity {
                 return;
             }
             Api.getService(Tags.base_url)
-                    .getNotifications("Bearer " + userModel.getUser().getToken(), userModel.getUser().getId(), "desc")
+                    .getNotifications("Bearer " + userModel.getData().getToken(), lang)
                     .enqueue(new Callback<NotificationDataModel>() {
                         @Override
                         public void onResponse(Call<NotificationDataModel> call, Response<NotificationDataModel> response) {
@@ -100,18 +109,15 @@ public class NotificationActivity extends AppCompatActivity {
                                         binding.tvNoData.setVisibility(View.VISIBLE);
                                     }
                                 } else {
-                                    Toast.makeText(NotificationActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
                                 }
                             } else {
                                 binding.progBar.setVisibility(View.GONE);
                                 binding.swipeRefresh.setRefreshing(false);
 
                                 if (response.code() == 500) {
-                                    Toast.makeText(NotificationActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
 
 
                                 } else {
-                                    Toast.makeText(NotificationActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
 
                                     try {
 
@@ -132,9 +138,7 @@ public class NotificationActivity extends AppCompatActivity {
                                 if (t.getMessage() != null) {
                                     Log.e("error", t.getMessage());
                                     if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
-                                        Toast.makeText(NotificationActivity.this, R.string.something, Toast.LENGTH_SHORT).show();
                                     } else {
-                                        Toast.makeText(NotificationActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 }
 
@@ -144,7 +148,7 @@ public class NotificationActivity extends AppCompatActivity {
                     });
         } catch (Exception e) {
 
-        }*/
+        }
     }
 
     public void setItemData(NotificationModel model) {

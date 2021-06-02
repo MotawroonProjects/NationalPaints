@@ -9,6 +9,9 @@
         <variable
             name="lang"
             type="String" />
+        <variable
+            name="model"
+            type="com.app.nationalpaints.models.ProductModel" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -78,7 +81,7 @@
                 app:frameSize="0.75"
                 app:frameThickness="2dp"
                 app:maskColor="#99000000"
-                android:visibility="gone"
+                android:visibility="visible"
                 />
 
             <FrameLayout
@@ -86,6 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/trans_black"
+                android:visibility="gone"
                 >
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -117,6 +121,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
+                            image="@{model.main_image}"
                             />
 
                         <TextView
@@ -133,6 +138,7 @@
                             android:textAlignment="viewStart"
                             android:textColor="@color/black"
                             android:textSize="14sp"
+                            android:text="@{model.title}"
                             />
                         <TextView
                             android:id="@+id/tvPoints"
@@ -148,7 +154,7 @@
                             android:background="@drawable/rounded_color6"
                             android:textSize="12sp"
                             android:textColor="@color/color8"
-                            android:text="300+"
+                            android:text="@{String.valueOf(model.points_count)}"
                             />
                     </LinearLayout>
 
@@ -175,6 +181,14 @@
                 </androidx.cardview.widget.CardView>
 
             </FrameLayout>
+
+            <ProgressBar
+                android:id="@+id/progBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                />
         </FrameLayout>
     </LinearLayout>
 

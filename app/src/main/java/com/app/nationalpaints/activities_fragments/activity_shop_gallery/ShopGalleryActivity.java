@@ -36,6 +36,7 @@ import com.budiyev.android.codescanner.CodeScanner;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import io.paperdb.Paper;
 import retrofit2.Call;
@@ -63,7 +64,8 @@ public class ShopGalleryActivity extends AppCompatActivity {
         initView();
     }
 
-    private void initView() {
+    private void initView()
+    {
         governmentList = new ArrayList<>();
         list = new ArrayList<>();
 
@@ -110,9 +112,19 @@ public class ShopGalleryActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
 
-    private void getData(String governate_id) {
+        binding.btnMap.setOnClickListener(v -> {
+            double latitude = Double.parseDouble(selectedModel.getLatitude());
+            double longitude = Double.parseDouble(selectedModel.getLongitude());
+
+            String uri = "http://maps.google.com/maps?q=loc:" + latitude + "," + longitude;
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+            intent.setPackage("com.google.android.apps.maps");
+            startActivity(intent);
+        });
+    }
+    private void getData(String governate_id)
+    {
         list.clear();
         adapter.notifyDataSetChanged();
         binding.progBar.setVisibility(View.VISIBLE);
@@ -160,8 +172,8 @@ public class ShopGalleryActivity extends AppCompatActivity {
                 });
 
     }
-
-    private void getGovernate() {
+    private void getGovernate()
+    {
 
         Api.getService(Tags.base_url)
                 .getGovernate()
@@ -225,8 +237,8 @@ public class ShopGalleryActivity extends AppCompatActivity {
                 });
 
     }
-
-    private void updateGovernateData(List<GovernmentModel.Data> data) {
+    private void updateGovernateData(List<GovernmentModel.Data> data)
+    {
 
 
         governmentList.clear();
@@ -244,8 +256,8 @@ public class ShopGalleryActivity extends AppCompatActivity {
 
 
     }
-
-    public void openSheet(ShopGalleryModel shopGalleryModel) {
+    public void openSheet(ShopGalleryModel shopGalleryModel)
+    {
         this.selectedModel = shopGalleryModel;
         binding.setModel(shopGalleryModel);
 
@@ -275,8 +287,8 @@ public class ShopGalleryActivity extends AppCompatActivity {
         });
 
     }
-
-    private void closeSheet() {
+    private void closeSheet()
+    {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.slide_down);
 
         binding.flSheet.clearAnimation();
@@ -302,9 +314,9 @@ public class ShopGalleryActivity extends AppCompatActivity {
         });
 
     }
-
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
         if (binding.flSheet.getVisibility()==View.VISIBLE){
             closeSheet();
         }else {

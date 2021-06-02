@@ -66,4 +66,10 @@
     <string name="we_will_contact">We will contact you for award</string>
     <string name="no_enough_points">No enough points</string>
     <string name="show_location_on_map">Show location on map</string>
+    <string name="qr_used">QrCode already used</string>
+    <string name="no_pro_found">No product found</string>
+    <string name="not_ava">Not available</string>
+    <string name="back">Back</string>
+    <string name="egp">EGP</string>
+    <string name="logout">Logout</string>
 </resources>

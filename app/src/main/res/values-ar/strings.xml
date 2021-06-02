@@ -66,4 +66,10 @@
     <string name="we_will_contact">سيتم التواصل معك لاستلام الجائزة</string>
     <string name="no_enough_points">لا يوجد نقاط كافية</string>
     <string name="show_location_on_map">عرض الموقع على الخريطة</string>
+    <string name="qr_used">الكود مستخدم من قبل</string>
+    <string name="no_pro_found">لا يوجد منتج لهذا الكود</string>
+    <string name="not_ava">غير متاح</string>
+    <string name="back">رجوع</string>
+    <string name="egp">ج.م</string>
+    <string name="logout">خروج</string>
 </resources>

@@ -9,25 +9,22 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.viewpager.widget.PagerAdapter;
 
-
 import com.app.nationalpaints.R;
-import com.app.nationalpaints.activities_fragments.activity_home.fragments.Fragment_Home;
 import com.app.nationalpaints.databinding.SliderRowBinding;
+import com.app.nationalpaints.models.ProductModel;
 import com.app.nationalpaints.models.SliderModel;
 
 import java.util.List;
 
-public class SliderAdapter extends PagerAdapter {
-    private List<SliderModel> list;
+public class SliderDetailsAdapter extends PagerAdapter {
+    private List<ProductModel.Image> list;
     private Context context;
     private LayoutInflater inflater;
-    private Fragment_Home fragment_home;
 
-    public SliderAdapter(List<SliderModel> list, Context context,Fragment_Home fragment_home) {
+    public SliderDetailsAdapter(List<ProductModel.Image> list, Context context) {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);
-        this.fragment_home = fragment_home;
     }
 
     @Override
@@ -46,9 +43,6 @@ public class SliderAdapter extends PagerAdapter {
         SliderRowBinding binding = DataBindingUtil.inflate(inflater, R.layout.slider_row, container, false);
         binding.setSliderData(list.get(position).getImage());
         container.addView(binding.getRoot());
-        binding.getRoot().setOnClickListener(v -> {
-            fragment_home.setItemProduct(list.get(position));
-        });
         return binding.getRoot();
     }
 

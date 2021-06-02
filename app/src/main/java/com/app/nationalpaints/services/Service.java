@@ -2,13 +2,18 @@ package com.app.nationalpaints.services;
 
 
 import com.app.nationalpaints.models.AreaModel;
+import com.app.nationalpaints.models.CategoryDataModel;
 import com.app.nationalpaints.models.GovernmentModel;
 import com.app.nationalpaints.models.MyPointsDataModel;
+import com.app.nationalpaints.models.NotificationDataModel;
 import com.app.nationalpaints.models.PlaceGeocodeData;
 import com.app.nationalpaints.models.PlaceMapDetailsData;
 import com.app.nationalpaints.models.PrizeDataModel;
+import com.app.nationalpaints.models.QrCodeModel;
+import com.app.nationalpaints.models.SettingDataModel;
 import com.app.nationalpaints.models.ShopGalleryDataModel;
 import com.app.nationalpaints.models.ShopGalleryModel;
+import com.app.nationalpaints.models.SingleProductModel;
 import com.app.nationalpaints.models.SliderDataModel;
 import com.app.nationalpaints.models.StatusResponse;
 import com.app.nationalpaints.models.UserModel;
@@ -121,5 +126,35 @@ public interface Service {
 
     @GET("api/getAllColorShows")
     Call<ShopGalleryDataModel> getShopGallery(@Query("governorate_id") String governorate_id);
+
+    @GET("api/allCategories")
+    Call<CategoryDataModel> getCategory();
+
+    @FormUrlEncoded
+    @POST("api/MakeQrcodeScanRequest")
+    Call<QrCodeModel> getProductByQrCode(@Header("Authorization") String user_token,
+                                         @Field("qr_code") String qr_code);
+
+    @GET("api/app/info")
+    Call<SettingDataModel> getSetting(@Header("Authorization") String user_token,
+                                      @Query("lang") String lang);
+
+    @FormUrlEncoded
+    @POST("api/singleProduct")
+    Call<SingleProductModel> getProductById(@Field("product_id") int product_id);
+
+
+    @POST("api/logout")
+    Call<StatusResponse> logout(@Header("Authorization") String user_token
+    );
+
+    @GET("api/getCurrentUserData")
+    Call<UserModel> getUserData(@Header("Authorization") String user_token);
+
+
+    @GET("api/allNotifications")
+    Call<NotificationDataModel> getNotifications(@Header("Authorization") String bearer_token,
+                                                 @Query("lang") String lang
+    );
 }
 

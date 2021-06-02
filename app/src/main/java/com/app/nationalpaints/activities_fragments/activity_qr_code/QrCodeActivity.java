@@ -21,20 +21,31 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
+import android.widget.Toast;
 
 import com.app.nationalpaints.R;
 import com.app.nationalpaints.databinding.ActivityLoginBinding;
 import com.app.nationalpaints.databinding.ActivityQrCodeBinding;
 import com.app.nationalpaints.language.Language;
 import com.app.nationalpaints.models.LoginModel;
+import com.app.nationalpaints.models.QrCodeModel;
+import com.app.nationalpaints.models.ShopGalleryDataModel;
+import com.app.nationalpaints.models.UserModel;
 import com.app.nationalpaints.preferences.Preferences;
+import com.app.nationalpaints.remote.Api;
 import com.app.nationalpaints.share.Common;
+import com.app.nationalpaints.tags.Tags;
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.budiyev.android.codescanner.ScanMode;
 import com.google.zxing.Result;
 
+import java.io.IOException;
+
 import io.paperdb.Paper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class QrCodeActivity extends AppCompatActivity {
     private ActivityQrCodeBinding binding;
@@ -44,6 +55,8 @@ public class QrCodeActivity extends AppCompatActivity {
     private final String write_permission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
     private final int  CAMERA_REQ = 2;
     private Animation animation;
+    private UserModel userModel;
+    private Preferences preferences;
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
         super.attachBaseContext(Language.updateResources(newBase, Paper.book().read("lang", "ar")));
@@ -57,11 +70,14 @@ public class QrCodeActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        preferences = Preferences.getInstance();
+        userModel = preferences.getUserData(this);
         Paper.init(this);
         lang = Paper.book().read("lang","ar");
         binding.setLang(lang);
         checkCameraPermission();
         binding.imageBack.setOnClickListener(v -> finish());
+
 
     }
 
@@ -71,7 +87,6 @@ public class QrCodeActivity extends AppCompatActivity {
         mCodeScanner.setScanMode(ScanMode.SINGLE);
         mCodeScanner.setDecodeCallback(result -> runOnUiThread(() -> {
             binding.scannerView.setVisibility(View.GONE);
-            binding.flData.setVisibility(View.VISIBLE);
             getProduct(result.getText());
         }));
         binding.scannerView.setVisibility(View.VISIBLE);
@@ -79,8 +94,65 @@ public class QrCodeActivity extends AppCompatActivity {
     }
 
     private void getProduct(String text) {
-        Log.e("text", text);
-        slideUp();
+        Log.e("dddd", text);
+        binding.progBar.setVisibility(View.VISIBLE);
+        Api.getService(Tags.base_url)
+                .getProductByQrCode("Bearer "+userModel.getData().getToken(),text)
+                .enqueue(new Callback<QrCodeModel>() {
+                    @Override
+                    public void onResponse(Call<QrCodeModel> call, Response<QrCodeModel> response) {
+                        binding.progBar.setVisibility(View.GONE);
+                        Log.e("code", response.body().getStatus()+"_");
+                        if (response.isSuccessful() && response.body() != null) {
+                            if (response.body().getStatus()==200) {
+                                binding.setModel(response.body().getData().getProduct());
+                                slideUp();
+                            }else if (response.body().getStatus()==406){
+                                binding.scannerView.setVisibility(View.VISIBLE);
+                                mCodeScanner.startPreview();
+                                Toast.makeText(QrCodeActivity.this, R.string.qr_used, Toast.LENGTH_SHORT).show();
+                            }else if (response.body().getStatus()==407){
+                                binding.scannerView.setVisibility(View.VISIBLE);
+                                mCodeScanner.startPreview();
+
+                                Toast.makeText(QrCodeActivity.this, R.string.no_pro_found, Toast.LENGTH_SHORT).show();
+                            }else {
+
+                                binding.scannerView.setVisibility(View.VISIBLE);
+
+                                mCodeScanner.startPreview();
+
+                            }
+                        } else {
+                            binding.progBar.setVisibility(View.GONE);
+                            binding.scannerView.setVisibility(View.VISIBLE);
+                            mCodeScanner.startPreview();
+
+                            try {
+                                Log.e("error_code", response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<QrCodeModel> call, Throwable t) {
+                        try {
+                            binding.progBar.setVisibility(View.GONE);
+                            binding.scannerView.setVisibility(View.VISIBLE);
+                            mCodeScanner.startPreview();
+
+                            Log.e("Error", t.getMessage());
+                        } catch (Exception e) {
+
+                        }
+                    }
+                });
+
+
 
     }
 

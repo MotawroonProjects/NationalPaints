@@ -8,9 +8,16 @@
     <data>
 
         <variable
+            name="model"
+            type="com.app.nationalpaints.models.ProductModel" />
+
+        <variable
             name="lang"
             type="String" />
+
+        <import type="android.view.View" />
     </data>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -56,291 +63,271 @@
             </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
-<androidx.core.widget.NestedScrollView
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        >
+
         <FrameLayout
-            android:id="@+id/fl"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <FrameLayout
-                android:id="@+id/flSlider"
+            android:layout_height="match_parent"
+            >
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="200dp">
-
-
-                <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/pager"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tab"
-                    android:layout_width="wrap_content"
-                    android:layout_height="7dp"
-                    android:layout_gravity="bottom|center"
-                    android:layout_marginBottom="20dp"
-                    app:tabBackground="@drawable/tab_indicator"
-                    app:tabGravity="fill"
-                    app:tabIndicatorHeight="0dp"
-                    app:tabMaxWidth="7dp"
-
-                    app:tabMode="scrollable" />
-
-            </FrameLayout>
-
-
-            <FrameLayout
-                android:id="@+id/flNoSlider"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="@color/gray1"
-                android:visibility="gone">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@drawable/ic_gallery"
-                        app:tint="@color/gray3" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/no_image"
-                        android:textColor="@color/gray4"
-                        android:textSize="15sp" />
-                </LinearLayout>
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:background="@drawable/polygon"
-                        android:gravity="center"
-                        android:paddingStart="8dp"
-                        android:paddingTop="5dp"
-                        android:paddingEnd="8dp"
-                        android:paddingBottom="5dp"
-                        android:text="X3"
-
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:background="@drawable/rounded_color6"
-                        android:gravity="center"
-                        android:paddingStart="8dp"
-                        android:paddingTop="5dp"
-                        android:paddingEnd="8dp"
-                        android:paddingBottom="5dp"
-                        android:text="+ 1000"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
-                </LinearLayout>
-            </FrameLayout>
-        </FrameLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:gravity="start"
-            android:maxLines="2"
-            android:text="علبة دهان"
-            android:textAlignment="viewStart"
-            android:textColor="@color/black"
-            android:textSize="14sp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tvoldprice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="10dp"
-                android:gravity="start"
-                android:maxLines="2"
-                android:text="250ج.م"
-                android:textAlignment="viewStart"
-                android:textColor="@color/gray12"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="10dp"
-                android:text="240ج.م"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
-
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_weight="1"
-
+                android:layout_height="match_parent"
+                android:visibility="@{model!=null?View.VISIBLE:View.GONE,default=gone}"
                 >
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:background="@drawable/rounded_color11"
-                    android:gravity="center"
-                    android:paddingStart="8dp"
-                    android:paddingTop="5dp"
-                    android:paddingEnd="8dp"
-                    android:paddingBottom="5dp"
-                    android:text="-30%"
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
+                    android:orientation="vertical"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
 
-            </FrameLayout>
-        </LinearLayout>
+                    <FrameLayout
+                        android:id="@+id/fl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="3dp"
-            android:weightSum="1">
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:background="@color/colorPrimary"
-                android:padding="5dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="@string/available_colors"
-                android:textColor="@color/black"
-                android:textSize="17sp"
-                android:textStyle="bold" />
+                        <FrameLayout
+                            android:id="@+id/flSlider"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp">
 
 
-        </LinearLayout>
+                            <androidx.viewpager.widget.ViewPager
+                                android:id="@+id/pager"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                            <com.google.android.material.tabs.TabLayout
+                                android:id="@+id/tab"
+                                android:layout_width="wrap_content"
+                                android:layout_height="7dp"
+                                android:layout_gravity="bottom|center"
+                                android:layout_marginBottom="20dp"
+                                app:tabBackground="@drawable/tab_indicator"
+                                app:tabGravity="fill"
+                                app:tabIndicatorHeight="0dp"
+                                app:tabMaxWidth="7dp"
+                                app:tabMode="scrollable" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                        </FrameLayout>
+
+
+                        <FrameLayout
+                            android:id="@+id/flNoSlider"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:background="@color/gray1"
+                            android:visibility="gone">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_horizontal"
+                                android:background="@color/gray13"
+                                image="@{model.main_image}"
+                                />
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:visibility='@{model.points_count==0?View.GONE:View.VISIBLE,default=gone}'>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/polygon"
+                                    android:gravity="center"
+                                    android:paddingStart="8dp"
+                                    android:paddingTop="5dp"
+                                    android:paddingEnd="8dp"
+                                    android:paddingBottom="5dp"
+                                    android:text="@{String.valueOf(model.offer_value_rate)}"
+
+                                    android:textColor="@color/white"
+                                    android:textSize="12sp"
+                                    android:visibility='@{model.have_points_offer.equals("without_offer")?View.GONE:View.VISIBLE,default=gone}' />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/rounded_color6"
+                                    android:gravity="center"
+                                    android:paddingStart="8dp"
+                                    android:paddingTop="5dp"
+                                    android:paddingEnd="8dp"
+                                    android:paddingBottom="5dp"
+                                    android:text="@{String.valueOf(model.points_count)}"
+                                    android:textColor="@color/white"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+                        </FrameLayout>
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:gravity="start"
+                        android:maxLines="2"
+                        android:text="@{model.title}"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvOldPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="10dp"
+                            android:gravity="start"
+                            android:maxLines="2"
+                            android:text='@{model.old_price+@string/egp}'
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/gray12"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="10dp"
+                            android:text='@{model.price+@string/egp}'
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:visibility='@{model.have_offer.equals("without_offer")?View.GONE:View.VISIBLE,default=gone}' />
+
+                        <FrameLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+
+                            >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end"
+                                android:background="@drawable/rounded_color11"
+                                android:gravity="center"
+                                android:paddingStart="8dp"
+                                android:paddingTop="5dp"
+                                android:paddingEnd="8dp"
+                                android:paddingBottom="5dp"
+                                android:text='@{model.offer_value_rate+"%"}'
+                                android:textColor="@color/white"
+                                android:textSize="12sp" />
+
+                        </FrameLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="3dp"
+                        android:weightSum="1">
+
+                        <View
+                            android:layout_width="2dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:background="@color/colorPrimary"
+                            android:padding="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:text="@string/available_colors"
+                            android:textColor="@color/black"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="3dp"
+                        android:weightSum="1">
+
+                        <View
+                            android:layout_width="2dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:background="@color/colorPrimary"
+                            android:padding="5dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:text="@string/details"
+                            android:textColor="@color/black"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="@{model.desc}"
+                        android:textColor="@color/gray14"
+                        android:textSize="17sp" />
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
 
             <ProgressBar
                 android:id="@+id/progBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="40dp"
-                android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/tvNoData"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="40dp"
-                android:text="@string/no_data_to_show"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:visibility="gone" />
+                />
+
         </FrameLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="3dp"
-            android:weightSum="1">
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:background="@color/colorPrimary"
-                android:padding="5dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="@string/details"
-                android:textColor="@color/black"
-                android:textSize="17sp"
-                android:textStyle="bold" />
-
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="الداخلية والخارجية. تم تطوير دهانات المينا الاصطناعية الوطنية خصيصًا لتوفير حماية داخلية وخارجية فائقة. يعتمد على راتنجات الألكيد ويحتوي على أصباغ ومواد مضافة وما إلى ذلك ... الأسطح الداخلية: أعمال خشبية وأعمال معدنية خارجية: أعمال خشبية وأعمال معدنية * قد يبدو لون الطلاء الفعلي على الشاشة مختلفًا قليلاً عن الطلاء. * ناشيونال باينت لا تتحمل أي مسؤولية عن الاختلافات الطفيفة في تمثيلات اللون."
-            android:textColor="@color/gray14"
-            android:textSize="17sp"
-            />
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
 
     </LinearLayout>
 
