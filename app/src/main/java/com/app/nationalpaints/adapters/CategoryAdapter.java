@@ -46,6 +46,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         MyHolder myHolder = (MyHolder) holder;
         myHolder.binding.setModel(list.get(position));
 
+        myHolder.itemView.setOnClickListener(v -> {
+            fragment_home.setCategoryItem(list.get(myHolder.getAdapterPosition()));
+        });
 
     }
 

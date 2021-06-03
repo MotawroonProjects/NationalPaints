@@ -214,6 +214,7 @@ public class AwardActivity extends AppCompatActivity {
                                 selectedPrize = null;
                                 getUserById(dialog);
                             }else if (response.body().getStatus()==406){
+                                dialog.dismiss();
                                 Common.CreateDialogAlert(AwardActivity.this,getString(R.string.no_enough_points));
 
                             }

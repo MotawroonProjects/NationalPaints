@@ -20,6 +20,7 @@ import com.app.nationalpaints.activities_fragments.activity_award.AwardActivity;
 import com.app.nationalpaints.activities_fragments.activity_home.HomeActivity;
 import com.app.nationalpaints.activities_fragments.activity_points.PointsActivity;
 import com.app.nationalpaints.activities_fragments.activity_product_detials.ProductDetialsActivity;
+import com.app.nationalpaints.activities_fragments.activity_products.ProductsActivity;
 import com.app.nationalpaints.activities_fragments.activity_shop_gallery.ShopGalleryActivity;
 import com.app.nationalpaints.adapters.CategoryAdapter;
 import com.app.nationalpaints.adapters.SliderAdapter;
@@ -263,6 +264,13 @@ public class Fragment_Home extends Fragment {
                     }
                 });
 
+    }
+
+    public void setCategoryItem(CategoryModel categoryModel) {
+
+        Intent intent = new Intent(activity, ProductsActivity.class);
+        intent.putExtra("data", categoryModel.getId());
+        startActivity(intent);
     }
 
 

@@ -9,6 +9,7 @@ import com.app.nationalpaints.models.NotificationDataModel;
 import com.app.nationalpaints.models.PlaceGeocodeData;
 import com.app.nationalpaints.models.PlaceMapDetailsData;
 import com.app.nationalpaints.models.PrizeDataModel;
+import com.app.nationalpaints.models.ProductDataModel;
 import com.app.nationalpaints.models.QrCodeModel;
 import com.app.nationalpaints.models.SettingDataModel;
 import com.app.nationalpaints.models.ShopGalleryDataModel;
@@ -143,6 +144,9 @@ public interface Service {
     @POST("api/singleProduct")
     Call<SingleProductModel> getProductById(@Field("product_id") int product_id);
 
+    @FormUrlEncoded
+    @POST("api/getProductsByCategoryId")
+    Call<ProductDataModel> getProductByCategoryId(@Field("category_id") int category_id);
 
     @POST("api/logout")
     Call<StatusResponse> logout(@Header("Authorization") String user_token
