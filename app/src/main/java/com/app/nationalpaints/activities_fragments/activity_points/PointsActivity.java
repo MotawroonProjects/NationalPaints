@@ -73,7 +73,9 @@ public class PointsActivity extends AppCompatActivity implements DatePickerDialo
         binding.recView.setAdapter(adapter);
         binding.recView.setItemAnimator(new DefaultItemAnimator());
         binding.llBack.setOnClickListener(v -> finish());
-        binding.tvDate.setOnClickListener(v -> createDateDialog());
+        binding.tvDatefrome.setOnClickListener(v -> createDateDialog());
+        binding.tvDateto.setOnClickListener(v -> createDateDialog());
+
         binding.setModel(userModel);
         getPoints(from_date,to_date);
 
@@ -163,10 +165,14 @@ public class PointsActivity extends AppCompatActivity implements DatePickerDialo
             String date = dateFormat.format(new Date(calendar.getTimeInMillis()));
             if (from_date==null){
                 from_date = date;
+                binding.tvDatefrome.setText(date);
+
                 createDateDialog();
             }else {
                 if (to_date==null){
                     to_date = date;
+                    binding.tvDateto.setText(date);
+
                 }
                 getPoints(from_date,to_date);
             }

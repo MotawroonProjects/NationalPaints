@@ -208,5 +208,12 @@ public class Fragment_Profile extends Fragment {
         startActivity(intent);
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(preferences!=null){
+            userModel=preferences.getUserData(activity);
+            binding.setModel(userModel);
+        }
+    }
 }

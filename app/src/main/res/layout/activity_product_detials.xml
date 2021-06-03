@@ -89,13 +89,13 @@
                         <FrameLayout
                             android:id="@+id/flSlider"
                             android:layout_width="match_parent"
-                            android:layout_height="200dp">
+                            android:layout_height="wrap_content">
 
 
                             <androidx.viewpager.widget.ViewPager
                                 android:id="@+id/pager"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent" />
+                                android:layout_height="400dp" />
 
                             <com.google.android.material.tabs.TabLayout
                                 android:id="@+id/tab"
@@ -151,7 +151,7 @@
                                     android:paddingTop="5dp"
                                     android:paddingEnd="8dp"
                                     android:paddingBottom="5dp"
-                                    android:text="@{String.valueOf(model.offer_value_rate)}"
+                                    android:text='@{(model.points_offer_type.equals("value")?"x":"%")+String.valueOf(model.points_offer_value)}'
 
                                     android:textColor="@color/white"
                                     android:textSize="12sp"
@@ -159,7 +159,7 @@
 
                                 <TextView
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="40dp"
                                     android:layout_gravity="center"
                                     android:background="@drawable/rounded_color6"
                                     android:gravity="center"
@@ -168,7 +168,7 @@
                                     android:paddingEnd="8dp"
                                     android:paddingBottom="5dp"
                                     android:text="@{String.valueOf(model.points_count)}"
-                                    android:textColor="@color/white"
+                                    android:textColor="@color/color4"
                                     android:textSize="12sp" />
                             </LinearLayout>
                         </FrameLayout>
@@ -179,8 +179,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
+                        android:layout_marginTop="20dp"
                         android:gravity="start"
                         android:maxLines="2"
+                        android:textStyle="bold"
                         android:text="@{model.title}"
                         android:textAlignment="viewStart"
                         android:textColor="@color/black"

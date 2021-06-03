@@ -95,6 +95,19 @@ public class SignUpActivity extends AppCompatActivity {
         signUpModel = new SignUpModel();
         if (userModel != null) {
             binding.btnSignup.setText(getResources().getString(R.string.update_profile));
+            signUpModel.setArea_id(userModel.getData().getCity_id());
+            signUpModel.setGovernate_id(userModel.getData().getGovernorate_id());
+            signUpModel.setLng(userModel.getData().getLongitude());
+            signUpModel.setLat(userModel.getData().getLatitude());
+            signUpModel.setAddress(userModel.getData().getAddress());
+            signUpModel.setNational_num(userModel.getData().getNational_ID());
+            signUpModel.setFirst_name(userModel.getData().getFirst_name());
+            signUpModel.setSeconed_name(userModel.getData().getSecond_name());
+            signUpModel.setThird_name(userModel.getData().getLast_name());
+            if(userModel.getData().getLogo()!=null){
+                binding.icon.setVisibility(View.GONE);
+                Picasso.get().load(Tags.IMAGE_URL+userModel.getData().getLogo()).into(binding.image);
+            }
         }
 
         binding.setModel(signUpModel);
@@ -225,7 +238,7 @@ binding.lllocation.setOnClickListener(new View.OnClickListener() {
 
     private void updateGovernateData(List<GovernmentModel.Data> data) {
 
-
+int pos = 0;
         dataList.clear();
 
         GovernmentModel.Data governatemodel = new GovernmentModel.Data("اختر المحافظه", "Choose Government");
@@ -234,6 +247,16 @@ binding.lllocation.setOnClickListener(new View.OnClickListener() {
         dataList.addAll(data);
         SpinnerGovernateAdapter spinnerCountryAdapter = new SpinnerGovernateAdapter(dataList, this);
         binding.spGovernate.setAdapter(spinnerCountryAdapter);
+if(userModel!=null){
+    for(int i=0;i<dataList.size();i++){
+        if(dataList.get(i).getId()==userModel.getData().getGovernorate_id()){
+        pos=i;
+        break;
+        }
+    }
+    binding.spGovernate.setSelection(pos);
+    getArea(userModel.getData().getGovernorate_id());
+}
 
     }
 
@@ -305,11 +328,22 @@ binding.lllocation.setOnClickListener(new View.OnClickListener() {
     }
 
     private void updateAreaData(List<AreaModel.Data> data) {
+        int pos=0;
         arealist.clear();
         arealist.add(new AreaModel.Data("اختر المنطقه", "Choose Area"));
         arealist.addAll(data);
         SpinnerAreaAdapter spinnerAreaAdapter = new SpinnerAreaAdapter(arealist, this);
         binding.spArea.setAdapter(spinnerAreaAdapter);
+        if(userModel!=null){
+            for(int i=0;i<arealist.size();i++){
+                if(arealist.get(i).getId()==userModel.getData().getCity_id()){
+                    pos=i;
+                    break;
+                }
+            }
+            binding.spArea.setSelection(pos);
+        }
+
     }
 
     private void getDataFromIntent() {
@@ -486,121 +520,127 @@ binding.lllocation.setOnClickListener(new View.OnClickListener() {
     }
 
     private void updateProfileWithImage() {
-//        ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
-//        dialog.setCancelable(false);
-//        dialog.show();
-//        RequestBody name_part = Common.getRequestBodyText(signUpModel.getName());
-//        RequestBody phone_code_part = Common.getRequestBodyText(signUpModel.getPhone_code());
-//        RequestBody phone_part = Common.getRequestBodyText(signUpModel.getPhone());
-//        RequestBody address_part = Common.getRequestBodyText("");
-//        RequestBody lat_part = Common.getRequestBodyText("0.0");
-//        RequestBody lng_part = Common.getRequestBodyText("0.0");
-//        RequestBody software_type_part = Common.getRequestBodyText("android");
-//        RequestBody email_part = Common.getRequestBodyText(signUpModel.getEmail());
-//
-//        MultipartBody.Part image = Common.getMultiPartImage(this, uri, "logo");
-//
-//
-//        Api.getService(Tags.base_url)
-//                .updateProfileWithImage("Bearer " + userModel.getData().getToken(), name_part, phone_code_part, phone_part,email_part, address_part, lat_part, lng_part, software_type_part, image)
-//                .enqueue(new Callback<UserModel>() {
-//                    @Override
-//                    public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-//                        dialog.dismiss();
-//                        if (response.isSuccessful() && response.body() != null) {
-//                            if (response.body().getStatus() == 200) {
-//                                preferences.create_update_userdata(SignUpActivity.this, response.body());
-//                                setResult(RESULT_OK);
-//                                finish();
-//                            } else if (response.body().getStatus() == 402) {
-//                                Toast.makeText(SignUpActivity.this, R.string.user_exist, Toast.LENGTH_SHORT).show();
-//                            }
-//                        } else {
-//                            try {
-//                                Log.e("error", response.code() + "__" + response.errorBody().string());
-//                            } catch (IOException e) {
-//                                e.printStackTrace();
-//                            }
-//                            if (response.code() == 500) {
-//                        //        Toast.makeText(SignUpActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
-//                            } else {
-//                          //      Toast.makeText(SignUpActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
-//                            }
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<UserModel> call, Throwable t) {
-//                        try {
-//                            dialog.dismiss();
-//                            if (t.getMessage() != null) {
-//                                Log.e("msg_category_error", t.getMessage() + "__");
-//
-//                                if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
-//                             //       Toast.makeText(SignUpActivity.this, getString(R.string.something), Toast.LENGTH_SHORT).show();
-//                                } else {
-//                               //     Toast.makeText(SignUpActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
-//                                }
-//                            }
-//                        } catch (Exception e) {
-//                            Log.e("Error", e.getMessage() + "__");
-//                        }
-//                    }
-//                });
+        ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
+        dialog.setCancelable(false);
+        dialog.show();
+        RequestBody first_part = Common.getRequestBodyText(signUpModel.getFirst_name());
+        RequestBody seconed_part = Common.getRequestBodyText(signUpModel.getSeconed_name());
+        RequestBody last_part = Common.getRequestBodyText(signUpModel.getThird_name());
+
+
+        RequestBody phone_code_part = Common.getRequestBodyText(userModel.getData().getPhone_code());
+        RequestBody phone_part = Common.getRequestBodyText(userModel.getData().getPhone());
+        RequestBody national_part = Common.getRequestBodyText(signUpModel.getNational_num());
+
+        RequestBody address_part = Common.getRequestBodyText(signUpModel.getAddress());
+        RequestBody lat_part = Common.getRequestBodyText(signUpModel.getLat()+"");
+        RequestBody lng_part = Common.getRequestBodyText(signUpModel.getLng()+"");
+        RequestBody governate_part = Common.getRequestBodyText(signUpModel.getGovernate_id()+"");
+        RequestBody area_part = Common.getRequestBodyText(signUpModel.getArea_id()+"");
+        RequestBody software_type_part = Common.getRequestBodyText("android");
+
+        MultipartBody.Part image = Common.getMultiPartImage(this, uri, "logo");
+
+        Api.getService(Tags.base_url)
+                .updateProfileWithImage("Bearer " + userModel.getData().getToken(), first_part,seconed_part,last_part, phone_code_part, phone_part,national_part, address_part, lat_part, lng_part,governate_part,area_part, software_type_part, image)
+                .enqueue(new Callback<UserModel>() {
+                    @Override
+                    public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                        dialog.dismiss();
+                        if (response.isSuccessful() && response.body() != null) {
+                            if (response.body().getStatus() == 200) {
+                                preferences.create_update_userdata(SignUpActivity.this, response.body());
+                                setResult(RESULT_OK);
+                                finish();
+                            } else if (response.body().getStatus() == 402) {
+                                Toast.makeText(SignUpActivity.this, R.string.user_exist, Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            try {
+                                Log.e("error", response.code() + "__" + response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            if (response.code() == 500) {
+                        //        Toast.makeText(SignUpActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+                            } else {
+                          //      Toast.makeText(SignUpActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<UserModel> call, Throwable t) {
+                        try {
+                            dialog.dismiss();
+                            if (t.getMessage() != null) {
+                                Log.e("msg_category_error", t.getMessage() + "__");
+
+                                if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
+                             //       Toast.makeText(SignUpActivity.this, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                                } else {
+                               //     Toast.makeText(SignUpActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        } catch (Exception e) {
+                            Log.e("Error", e.getMessage() + "__");
+                        }
+                    }
+                });
     }
 
     private void updateProfileWithoutImage() {
-//        ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
-//        dialog.setCancelable(false);
-//        dialog.show();
-//        Api.getService(Tags.base_url)
-//                .updateProfileWithoutImage("Bearer " + userModel.getData().getToken(), signUpModel.getName(), signUpModel.getPhone_code(), signUpModel.getPhone(), signUpModel.getEmail(),"", 0.0, 0.0, "android")
-//                .enqueue(new Callback<UserModel>() {
-//                    @Override
-//                    public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-//                        dialog.dismiss();
-//                        if (response.isSuccessful() && response.body() != null) {
-//                            if (response.body().getStatus() == 200) {
-//                                preferences.create_update_userdata(SignUpActivity.this, response.body());
-//                                setResult(RESULT_OK);
-//                                finish();
-//                            } else if (response.body().getStatus() == 402) {
-//                                Toast.makeText(SignUpActivity.this, R.string.user_exist, Toast.LENGTH_SHORT).show();
-//                            }
-//
-//                        } else {
-//                            if (response.code() == 500) {
-//                              //  Toast.makeText(SignUpActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
-//                            } else {
-//                                //Toast.makeText(SignUpActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
-//                            }
-//
-//                            try {
-//                                Log.e("error", response.errorBody().string());
-//                            } catch (IOException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<UserModel> call, Throwable t) {
-//                        try {
-//                            dialog.dismiss();
-//                            if (t.getMessage() != null) {
-//                                Log.e("msg_category_error", t.getMessage() + "__");
-//
-//                                if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
-//                      //              Toast.makeText(SignUpActivity.this, getString(R.string.something), Toast.LENGTH_SHORT).show();
-//                                } else {
-//                        //            Toast.makeText(SignUpActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
-//                                }
-//                            }
-//                        } catch (Exception e) {
-//                            Log.e("Error", e.getMessage() + "__");
-//                        }
-//                    }
-//                });
+        ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
+        dialog.setCancelable(false);
+        dialog.show();
+        Api.getService(Tags.base_url)
+                .updateProfileWithoutImage("Bearer " + userModel.getData().getToken(), signUpModel.getFirst_name(),signUpModel.getSeconed_name(),signUpModel.getThird_name(), userModel.getData().getPhone_code(), userModel.getData().getPhone(),signUpModel.getNational_num(), signUpModel.getAddress(), signUpModel.getLat(), signUpModel.getLng(),signUpModel.getGovernate_id()+"",signUpModel.getArea_id()+"", "android")
+                .enqueue(new Callback<UserModel>() {
+                    @Override
+                    public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                        dialog.dismiss();
+                        if (response.isSuccessful() && response.body() != null) {
+                            if (response.body().getStatus() == 200) {
+                                preferences.create_update_userdata(SignUpActivity.this, response.body());
+                                setResult(RESULT_OK);
+                                finish();
+                            } else if (response.body().getStatus() == 402) {
+                                Toast.makeText(SignUpActivity.this, R.string.user_exist, Toast.LENGTH_SHORT).show();
+                            }
+
+                        } else {
+                            if (response.code() == 500) {
+                              //  Toast.makeText(SignUpActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+                            } else {
+                                //Toast.makeText(SignUpActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                            }
+
+                            try {
+                                Log.e("error", response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<UserModel> call, Throwable t) {
+                        try {
+                            dialog.dismiss();
+                            if (t.getMessage() != null) {
+                                Log.e("msg_category_error", t.getMessage() + "__");
+
+                                if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
+                      //              Toast.makeText(SignUpActivity.this, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                                } else {
+                        //            Toast.makeText(SignUpActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        } catch (Exception e) {
+                            Log.e("Error", e.getMessage() + "__");
+                        }
+                    }
+                });
     }
 
     private void signUpWithoutImage() {

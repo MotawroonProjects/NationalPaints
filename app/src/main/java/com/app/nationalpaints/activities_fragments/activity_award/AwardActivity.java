@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -15,13 +14,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.app.nationalpaints.R;
-import com.app.nationalpaints.activities_fragments.activity_points.PointsActivity;
 import com.app.nationalpaints.adapters.AwardAdapter;
-import com.app.nationalpaints.adapters.PointsAdapter;
 import com.app.nationalpaints.databinding.ActivityAwardBinding;
-import com.app.nationalpaints.databinding.ActivityPointsBinding;
 import com.app.nationalpaints.language.Language;
-import com.app.nationalpaints.models.MyPointsDataModel;
 import com.app.nationalpaints.models.MyPointsModel;
 import com.app.nationalpaints.models.PrizeDataModel;
 import com.app.nationalpaints.models.StatusResponse;
@@ -215,7 +210,7 @@ public class AwardActivity extends AppCompatActivity {
                                 getUserById(dialog);
                             }else if (response.body().getStatus()==406){
                                 dialog.dismiss();
-                                Common.CreateDialogAlert(AwardActivity.this,getString(R.string.no_enough_points));
+                                UpdataData(0);
 
                             }
 
@@ -243,6 +238,18 @@ public class AwardActivity extends AppCompatActivity {
 
     }
 
+    private void UpdataData(int i) {
+        if(i==0) {
+            binding.tvResult.setText(getResources().getString(R.string.no_enough_points));
+            binding.image.setImageDrawable(getResources().getDrawable(R.drawable.nervous));
+        }
+        else {
+        binding.tvResult.setText(getResources().getString(R.string.we_will_contact));
+        binding.image.setImageDrawable(getResources().getDrawable(R.drawable.circle_correct));
+    }
+    binding.flData.setVisibility(View.VISIBLE);
+    }
+
     private void getUserById(ProgressDialog dialog) {
         Api.getService(Tags.base_url)
                 .getUserById("Bearer "+userModel.getData().getToken())
@@ -254,8 +261,8 @@ public class AwardActivity extends AppCompatActivity {
                             if (response.body().getStatus()==200){
                                 userModel = response.body();
                                 preferences.create_update_userdata(AwardActivity.this,response.body());
-                                Common.CreateDialogAlert(AwardActivity.this,getString(R.string.we_will_contact));
-
+                              //  Common.CreateDialogAlert(AwardActivity.this,getString(R.string.we_will_contact));
+UpdataData(1);
                             }
 
                         } else {

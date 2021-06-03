@@ -502,6 +502,7 @@
                     android:layout_gravity="center"
 
                     android:layout_marginTop="40dp"
+                    android:layout_marginBottom="20dp"
                     android:background="@drawable/btn_change_lang"
                     android:minWidth="180dp"
                     android:text="@string/start"
@@ -601,6 +602,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="25dp"
+
                     android:background="@color/colorPrimary"
                     android:text="@string/cancel"
                     android:textColor="@color/white"

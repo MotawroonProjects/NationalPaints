@@ -1,6 +1,7 @@
 package com.app.nationalpaints.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.app.nationalpaints.R;
 import com.app.nationalpaints.activities_fragments.activity_home.fragments.Fragment_Home;
 import com.app.nationalpaints.databinding.SliderRowBinding;
 import com.app.nationalpaints.models.SliderModel;
+import com.app.nationalpaints.tags.Tags;
 
 import java.util.List;
 
@@ -45,6 +47,7 @@ public class SliderAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         SliderRowBinding binding = DataBindingUtil.inflate(inflater, R.layout.slider_row, container, false);
         binding.setSliderData(list.get(position).getImage());
+        Log.e("dlldl", Tags.IMAGE_URL+list.get(position).getImage());
         container.addView(binding.getRoot());
         binding.getRoot().setOnClickListener(v -> {
             fragment_home.setItemProduct(list.get(position));

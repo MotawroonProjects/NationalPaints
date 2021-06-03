@@ -57,7 +57,7 @@
     <string name="egypt">مصر</string>
     <string name="saudi_arabia">السعودية</string>
     <string name="select_location_on_map">حدد الموقع على الخريطة</string>
-    <string name="user_exist">المستخدم موجود من قبل</string>
+    <string name="user_exist">رقم الجوال موجود من قبل</string>
     <string name="select">إختر</string>
     <string name="point">نقطة</string>
     <string name="exchange_points">هل أنت متأكد من إستبدال النقاط؟</string>
@@ -72,4 +72,6 @@
     <string name="back">رجوع</string>
     <string name="egp">ج.م</string>
     <string name="logout">خروج</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
 </resources>

@@ -93,6 +93,45 @@ public interface Service {
 
     );
 
+    @FormUrlEncoded
+    @POST("api/updateProfile")
+    Call<UserModel> updateProfileWithoutImage(
+            @Header("Authorization") String user_token,
+            @Field("first_name") String first_name,
+            @Field("second_name") String second_name,
+            @Field("last_name") String last_name,
+            @Field("phone_code") String phone_code,
+            @Field("phone") String phone,
+            @Field("national_ID") String national_ID,
+            @Field("address") String address,
+            @Field("latitude") double latitude,
+            @Field("longitude") double longitude,
+            @Field("governorate_id") String governorate_id,
+            @Field("city_id") String city_id,
+            @Field("software_type") String software_type
+    );
+
+    @Multipart
+    @POST("api/updateProfile")
+    Call<UserModel> updateProfileWithImage(
+            @Header("Authorization") String user_token,
+            @Part("first_name") RequestBody first_name,
+            @Part("second_name") RequestBody second_name,
+            @Part("last_name") RequestBody last_name,
+            @Part("phone_code") RequestBody phone_code,
+            @Part("phone") RequestBody phone,
+            @Part("national_ID") RequestBody national_ID,
+            @Part("address") RequestBody address,
+            @Part("latitude") RequestBody latitude,
+            @Part("longitude") RequestBody longitude,
+            @Part("governorate_id") RequestBody governorate_id,
+            @Part("city_id") RequestBody city_id,
+            @Part("software_type") RequestBody software_type,
+            @Part MultipartBody.Part logo
+
+
+    );
+
     @GET("api/allGovernorates")
     Call<GovernmentModel> getGovernate();
 
@@ -119,7 +158,7 @@ public interface Service {
     @POST("api/changePointWithPrize")
     Call<StatusResponse> exchangePoints(@Header("Authorization") String user_token,
                                         @Field("prize_id") int prize_id
-                                   );
+    );
 
     @GET("api/getCurrentUserData")
     Call<UserModel> getUserById(@Header("Authorization") String user_token);

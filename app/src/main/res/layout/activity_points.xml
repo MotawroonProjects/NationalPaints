@@ -215,24 +215,44 @@
                         android:textStyle="bold"
 
                         />
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"/>
+
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/ic_calender"
                         android:padding="3dp"
+                        android:layout_marginStart="50dp"
                         />
                     <TextView
-                        android:id="@+id/tvDate"
+                        android:id="@+id/tvDatefrome"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:text="@string/last_month"
+                        android:singleLine="true"
+                        android:textSize="14sp"
+                        android:text="@string/from"
+                        android:layout_gravity="center_vertical"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"/>
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_calender"
+                        android:padding="3dp"
+                        android:layout_marginStart="50dp"
+
+                        />
+                    <TextView
+                        android:id="@+id/tvDateto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:text="@string/to"
+                        android:singleLine="true"
                         android:layout_gravity="center_vertical"
                         android:paddingStart="5dp"
                         android:paddingEnd="5dp"/>
