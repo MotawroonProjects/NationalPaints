@@ -91,14 +91,14 @@ public class VerificationCodeActivity extends AppCompatActivity {
         binding.btnConfirm.setOnClickListener(view -> {
             String code = binding.edtCode.getText().toString().trim();
             //navigateToSignUpActivity();
-            login();
-           /* if (!code.isEmpty()) {
+            //login();
+            if (!code.isEmpty()) {
                 binding.edtCode.setError(null);
                 Common.CloseKeyBoard(this, binding.edtCode);
                 checkValidCode(code);
             } else {
                 binding.edtCode.setError(getString(R.string.field_required));
-            }*/
+            }
 
         });
         sendSmsCode();
