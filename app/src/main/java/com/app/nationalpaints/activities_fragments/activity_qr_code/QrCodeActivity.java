@@ -77,8 +77,32 @@ public class QrCodeActivity extends AppCompatActivity {
         binding.setLang(lang);
         checkCameraPermission();
         binding.imageBack.setOnClickListener(v -> finish());
+        binding.edtScan.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.toString().isEmpty()){
+                    binding.imageScan.setVisibility(View.GONE);
+                }else {
+                    binding.imageScan.setVisibility(View.VISIBLE);
+
+                }
+            }
+        });
+
+        binding.imageScan.setOnClickListener(v -> {
+            String code = binding.edtScan.getText().toString();
+            getProduct(code);
+        });
     }
 
     private void initScanner(){

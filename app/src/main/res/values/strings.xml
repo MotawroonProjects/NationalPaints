@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">National Paints</string>
+    <string name="app_name">ملوك الصنعة</string>
     <string name="field_required">Field Required</string>
     <string name="inv_email">Inviald Email</string>
     <string name="phone">Phone</string>
@@ -74,4 +74,5 @@
     <string name="logout">Logout</string>
     <string name="from">From</string>
     <string name="to">To</string>
+    <string name="enter_barcode">Enter barcode</string>
 </resources>
