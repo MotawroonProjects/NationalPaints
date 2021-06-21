@@ -103,6 +103,8 @@ public class QrCodeActivity extends AppCompatActivity {
             String code = binding.edtScan.getText().toString();
             getProduct(code);
         });
+
+
     }
 
     private void initScanner(){
