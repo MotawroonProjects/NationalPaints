@@ -1,6 +1,7 @@
 package com.app.nationalpaints.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.CountDownTimer;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -20,9 +21,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.app.nationalpaints.R;
+import com.app.nationalpaints.activities_fragments.activity_map.MapActivity;
 import com.app.nationalpaints.activities_fragments.activity_shop_gallery.ShopGalleryActivity;
 import com.app.nationalpaints.databinding.ShopGalleryRowBinding;
 import com.app.nationalpaints.models.ShopGalleryModel;
+import com.app.nationalpaints.models.UserModel;
+import com.app.nationalpaints.preferences.Preferences;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,6 +44,8 @@ public class ShopGalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private LayoutInflater inflater;
     private ShopGalleryActivity activity;
     private String lang = "ar";
+    private Preferences preferences;
+    private UserModel userModel;
     public ShopGalleryAdapter(List<ShopGalleryModel> list, Context context) {
         this.list = list;
         this.context = context;
@@ -47,6 +53,8 @@ public class ShopGalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         activity = (ShopGalleryActivity) context;
         Paper.init(context);
         lang = Paper.book().read("lang","ar");
+        preferences = Preferences.getInstance();
+        userModel = preferences.getUserData(activity);
     }
 
 
@@ -66,6 +74,20 @@ public class ShopGalleryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         myHolder.binding.setModel(list.get(position));
         myHolder.binding.tvDetails.setOnClickListener(v -> {
             activity.openSheet(list.get(myHolder.getAdapterPosition()));
+        });
+
+        if (userModel.getData().getId()==1){
+            myHolder.binding.btnEdit.setVisibility(View.VISIBLE);
+        }else {
+            myHolder.binding.btnEdit.setVisibility(View.GONE);
+
+        }
+        myHolder.binding.btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                activity.updateLocation(list.get(myHolder.getAdapterPosition()),myHolder.getAdapterPosition());
+            }
         });
 
     }

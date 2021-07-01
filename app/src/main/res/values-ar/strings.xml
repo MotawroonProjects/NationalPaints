@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">ملوك الصنعة</string>
+    <string name="map_api_key">AIzaSyAnjvMAJEmiAv3yeCDUXWv-PboXiT_uaoQ</string>
+    <string name="search_key">AIzaSyAnjvMAJEmiAv3yeCDUXWv-PboXiT_uaoQ</string>
     <string name="field_required">الحقل مطلوب</string>
     <string name="inv_email">ايميل خاطئ</string>
     <string name="phone">رقم الجوال</string>
@@ -75,4 +77,6 @@
     <string name="from">من</string>
     <string name="to">إلى</string>
     <string name="enter_barcode">أدخر الباركود</string>
+    <string name="edit_location">تعديل الموقع</string>
+    <string name="succ">تم تحديث موقع معرض التلوين بنجاح</string>
 </resources>

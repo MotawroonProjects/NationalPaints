@@ -28,8 +28,11 @@ import androidx.databinding.DataBindingUtil;
 
 
 import com.app.nationalpaints.R;
+import com.app.nationalpaints.activities_fragments.activity_shop_gallery.ShopGalleryActivity;
 import com.app.nationalpaints.databinding.ActivityMapBinding;
+import com.app.nationalpaints.interfaces.Listeners;
 import com.app.nationalpaints.language.Language;
+//import com.app.nationalpaints.models.AddressModel;
 import com.app.nationalpaints.models.PlaceGeocodeData;
 import com.app.nationalpaints.models.PlaceMapDetailsData;
 import com.app.nationalpaints.models.SelectedLocation;
@@ -58,17 +61,19 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import io.paperdb.Paper;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, Listeners.BackListener {
     private ActivityMapBinding binding;
     private String lang;
     private double lat = 0.0, lng = 0.0;
-    private String address = "";
+    private int id ;
+    private String address="";
     private GoogleMap mMap;
     private Marker marker;
     private float zoom = 15.0f;
@@ -77,6 +82,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private LocationCallback locationCallback;
     private final String fineLocPerm = Manifest.permission.ACCESS_FINE_LOCATION;
     private final int loc_req = 1225;
+//    private AddressModel addressModel;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -89,14 +95,23 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_map);
+       getDataFromIntent();
         initView();
     }
 
+    private void getDataFromIntent() {
+        Intent intent = getIntent();
+        if (intent != null) {
+            id = intent.getIntExtra("id", 0);
+
+        }
+    }
 
     private void initView() {
         Paper.init(this);
         lang = Paper.book().read("lang", "ar");
         binding.setLang(lang);
+      //  binding.setBackListener(this);
         binding.progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
         binding.edtSearch.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -119,7 +134,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         binding.btnSelect.setOnClickListener(view -> {
             SelectedLocation selectedLocation = new SelectedLocation(lat, lng, address);
             Intent intent = getIntent();
-            intent.putExtra("location", selectedLocation);
+            intent.putExtra("data",selectedLocation);
             setResult(RESULT_OK,intent);
             finish();
 
@@ -208,7 +223,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         String fields = "id,place_id,name,geometry,formatted_address";
 
         Api.getService("https://maps.googleapis.com/maps/api/")
-                .searchOnMap("textquery", query, fields, lang, getString(R.string.google_api_key))
+                .searchOnMap("textquery", query, fields, lang, getString(R.string.about_us))
                 .enqueue(new Callback<PlaceMapDetailsData>() {
                     @Override
                     public void onResponse(Call<PlaceMapDetailsData> call, Response<PlaceMapDetailsData> response) {
@@ -254,7 +269,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         binding.progBar.setVisibility(View.VISIBLE);
         String location = lat + "," + lng;
         Api.getService("https://maps.googleapis.com/maps/api/")
-                .getGeoData(location, lang, getString(R.string.google_api_key))
+                .getGeoData(location, lang, getString(R.string.search_key))
                 .enqueue(new Callback<PlaceGeocodeData>() {
                     @Override
                     public void onResponse(Call<PlaceGeocodeData> call, Response<PlaceGeocodeData> response) {
@@ -287,7 +302,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         try {
                             binding.progBar.setVisibility(View.GONE);
 
-                         //   Toast.makeText(MapActivity.this, getString(R.string.something), Toast.LENGTH_LONG).show();
+                       //     Toast.makeText(MapActivity.this, getString(R.string.something), Toast.LENGTH_LONG).show();
                         } catch (Exception e) {
 
                         }
@@ -375,16 +390,23 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     public void onLocationChanged(Location location) {
-        lat = location.getLatitude();
-        lng = location.getLongitude();
-        AddMarker(lat, lng);
-        getGeoData(lat, lng);
+      //  if (addressModel == null) {
+            lat = location.getLatitude();
+            lng = location.getLongitude();
+            AddMarker(lat, lng);
+            getGeoData(lat, lng);
 
-        if (googleApiClient != null) {
-            LocationServices.getFusedLocationProviderClient(this).removeLocationUpdates(locationCallback);
-            googleApiClient.disconnect();
-            googleApiClient = null;
-        }
+            if (googleApiClient != null) {
+                LocationServices.getFusedLocationProviderClient(this).removeLocationUpdates(locationCallback);
+                googleApiClient.disconnect();
+                googleApiClient = null;
+            }
+
+  /*      } else {
+            binding.edtSearch.setText(address);
+            AddMarker(lat,lng);
+            getGeoData(lat, lng);
+        }*/
 
     }
 
@@ -427,5 +449,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     }
 
-
+    @Override
+    public void back() {
+        finish();
+    }
 }

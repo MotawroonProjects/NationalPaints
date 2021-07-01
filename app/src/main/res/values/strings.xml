@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">ملوك الصنعة</string>
+    <string name="map_api_key">AIzaSyAnjvMAJEmiAv3yeCDUXWv-PboXiT_uaoQ</string>
+    <string name="search_key">AIzaSyAnjvMAJEmiAv3yeCDUXWv-PboXiT_uaoQ</string>
     <string name="field_required">Field Required</string>
     <string name="inv_email">Inviald Email</string>
     <string name="phone">Phone</string>
@@ -75,4 +77,6 @@
     <string name="from">From</string>
     <string name="to">To</string>
     <string name="enter_barcode">Enter barcode</string>
+    <string name="edit_location">Edit Location</string>
+    <string name="succ">updated seccess</string>
 </resources>

@@ -14,6 +14,7 @@ import com.app.nationalpaints.models.QrCodeModel;
 import com.app.nationalpaints.models.SettingDataModel;
 import com.app.nationalpaints.models.ShopGalleryDataModel;
 import com.app.nationalpaints.models.ShopGalleryModel;
+import com.app.nationalpaints.models.ShopGalleryModel2;
 import com.app.nationalpaints.models.SingleProductModel;
 import com.app.nationalpaints.models.SliderDataModel;
 import com.app.nationalpaints.models.StatusResponse;
@@ -198,6 +199,16 @@ public interface Service {
     @GET("api/allNotifications")
     Call<NotificationDataModel> getNotifications(@Header("Authorization") String bearer_token,
                                                  @Query("lang") String lang
+    );
+
+    @FormUrlEncoded
+    @POST("api/updateLocationOfColorShow")
+    Call<ShopGalleryModel2> updateLocationOfColorShow(
+            @Field("color_show_id") int color_show_id,
+            @Field("address") String address,
+            @Field("latitude") double latitude,
+            @Field("longitude") double longitude,
+            @Field("user_id") int user_id
     );
 }
 

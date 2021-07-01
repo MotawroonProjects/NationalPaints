@@ -19,6 +19,8 @@ public class ShopGalleryModel implements Serializable {
     private GovernmentModel.Data governorate;
     private AreaModel.Data city;
 
+
+
     public int getId() {
         return id;
     }
@@ -77,5 +79,21 @@ public class ShopGalleryModel implements Serializable {
 
     public AreaModel.Data getCity() {
         return city;
+    }
+
+    public void setCity_id(int city_id) {
+        this.city_id = city_id;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 }

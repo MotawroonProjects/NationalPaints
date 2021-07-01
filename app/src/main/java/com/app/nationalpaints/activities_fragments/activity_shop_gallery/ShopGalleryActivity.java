@@ -1,11 +1,13 @@
 package com.app.nationalpaints.activities_fragments.activity_shop_gallery;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,9 +17,12 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.app.nationalpaints.R;
 import com.app.nationalpaints.activities_fragments.activity_award.AwardActivity;
+import com.app.nationalpaints.activities_fragments.activity_map.MapActivity;
+import com.app.nationalpaints.activities_fragments.activity_sign_up.SignUpActivity;
 import com.app.nationalpaints.adapters.ShopGalleryAdapter;
 import com.app.nationalpaints.adapters.SpinnerGovernateAdapter;
 import com.app.nationalpaints.databinding.ActivityQrCodeBinding;
@@ -25,9 +30,12 @@ import com.app.nationalpaints.databinding.ActivityShopGalleryBinding;
 import com.app.nationalpaints.language.Language;
 import com.app.nationalpaints.models.GovernmentModel;
 import com.app.nationalpaints.models.MyPointsModel;
+import com.app.nationalpaints.models.SelectedLocation;
 import com.app.nationalpaints.models.ShopGalleryDataModel;
 import com.app.nationalpaints.models.ShopGalleryModel;
+import com.app.nationalpaints.models.ShopGalleryModel2;
 import com.app.nationalpaints.models.UserModel;
+import com.app.nationalpaints.preferences.Preferences;
 import com.app.nationalpaints.remote.Api;
 import com.app.nationalpaints.share.Common;
 import com.app.nationalpaints.tags.Tags;
@@ -51,7 +59,15 @@ public class ShopGalleryActivity extends AppCompatActivity {
     private List<GovernmentModel.Data> governmentList;
     private ShopGalleryAdapter adapter;
     private SpinnerGovernateAdapter spinnerCountryAdapter;
-    private  ShopGalleryModel selectedModel;
+    private ShopGalleryModel selectedModel;
+    private Preferences preferences;
+    private UserModel userModel;
+    private String address;
+    private double lat, lng;
+    private int id;
+    private ShopGalleryModel shopGalleryModel;
+    private int adapterPos ;
+
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
         super.attachBaseContext(Language.updateResources(newBase, Paper.book().read("lang", "ar")));
@@ -62,27 +78,29 @@ public class ShopGalleryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_shop_gallery);
         initView();
+
     }
 
-    private void initView()
-    {
+
+    private void initView() {
         governmentList = new ArrayList<>();
         list = new ArrayList<>();
-
+        preferences = Preferences.getInstance();
+        userModel = preferences.getUserData(this);
         Paper.init(this);
-        lang = Paper.book().read("lang","ar");
+        lang = Paper.book().read("lang", "ar");
         binding.setLang(lang);
         binding.recView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ShopGalleryAdapter(list,this);
+        adapter = new ShopGalleryAdapter(list, this);
         binding.recView.setAdapter(adapter);
-        binding.recView.setItemAnimator( new DefaultItemAnimator());
+        binding.recView.setItemAnimator(new DefaultItemAnimator());
         binding.llBack.setOnClickListener(v -> finish());
         binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position==0){
+                if (position == 0) {
                     getData(null);
-                }else {
+                } else {
                     getData(String.valueOf(governmentList.get(position).getId()));
                 }
             }
@@ -98,17 +116,17 @@ public class ShopGalleryActivity extends AppCompatActivity {
         binding.imageCall.setOnClickListener(v -> {
             String number = "";
 
-            if (selectedModel!=null){
-                if (selectedModel.getPhone_number1()!=null){
+            if (selectedModel != null) {
+                if (selectedModel.getPhone_number1() != null) {
                     number = selectedModel.getPhone_number1();
-                }else if (selectedModel.getPhone_number2()!=null){
+                } else if (selectedModel.getPhone_number2() != null) {
                     number = selectedModel.getPhone_number2();
 
                 }
             }
 
-            if (!number.isEmpty()){
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+number));
+            if (!number.isEmpty()) {
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + number));
                 startActivity(intent);
             }
         });
@@ -123,8 +141,8 @@ public class ShopGalleryActivity extends AppCompatActivity {
             startActivity(intent);
         });
     }
-    private void getData(String governate_id)
-    {
+
+    private void getData(String governate_id) {
         list.clear();
         adapter.notifyDataSetChanged();
         binding.progBar.setVisibility(View.VISIBLE);
@@ -136,18 +154,18 @@ public class ShopGalleryActivity extends AppCompatActivity {
                     public void onResponse(Call<ShopGalleryDataModel> call, Response<ShopGalleryDataModel> response) {
                         binding.progBar.setVisibility(View.GONE);
                         if (response.isSuccessful() && response.body() != null) {
-                            if (response.body().getStatus()==200) {
-                                if (response.body().getData().size()>0){
+                            if (response.body().getStatus() == 200) {
+                                if (response.body().getData().size() > 0) {
                                     binding.tvNoData.setVisibility(View.GONE);
                                     list.addAll(response.body().getData());
                                     adapter.notifyDataSetChanged();
-                                }else{
+                                } else {
                                     binding.tvNoData.setVisibility(View.VISIBLE);
 
                                 }
                             }
                         } else {
-                                binding.progBar.setVisibility(View.GONE);
+                            binding.progBar.setVisibility(View.GONE);
 
                             try {
                                 Log.e("error_code", response.errorBody().string());
@@ -172,8 +190,8 @@ public class ShopGalleryActivity extends AppCompatActivity {
                 });
 
     }
-    private void getGovernate()
-    {
+
+    private void getGovernate() {
 
         Api.getService(Tags.base_url)
                 .getGovernate()
@@ -237,8 +255,8 @@ public class ShopGalleryActivity extends AppCompatActivity {
                 });
 
     }
-    private void updateGovernateData(List<GovernmentModel.Data> data)
-    {
+
+    private void updateGovernateData(List<GovernmentModel.Data> data) {
 
 
         governmentList.clear();
@@ -247,17 +265,17 @@ public class ShopGalleryActivity extends AppCompatActivity {
 
         governmentList.add(governatemodel);
         governmentList.addAll(data);
-        if(spinnerCountryAdapter==null){
+        if (spinnerCountryAdapter == null) {
             spinnerCountryAdapter = new SpinnerGovernateAdapter(governmentList, this);
             binding.spinner.setAdapter(spinnerCountryAdapter);
-        }else {
+        } else {
             spinnerCountryAdapter.notifyDataSetChanged();
         }
 
 
     }
-    public void openSheet(ShopGalleryModel shopGalleryModel)
-    {
+
+    public void openSheet(ShopGalleryModel shopGalleryModel) {
         this.selectedModel = shopGalleryModel;
         binding.setModel(shopGalleryModel);
 
@@ -287,8 +305,8 @@ public class ShopGalleryActivity extends AppCompatActivity {
         });
 
     }
-    private void closeSheet()
-    {
+
+    private void closeSheet() {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.slide_down);
 
         binding.flSheet.clearAnimation();
@@ -314,13 +332,85 @@ public class ShopGalleryActivity extends AppCompatActivity {
         });
 
     }
+
     @Override
-    public void onBackPressed()
-    {
-        if (binding.flSheet.getVisibility()==View.VISIBLE){
+    public void onBackPressed() {
+        if (binding.flSheet.getVisibility() == View.VISIBLE) {
             closeSheet();
-        }else {
+        } else {
             finish();
+        }
+    }
+
+
+    public void updateLocation(ShopGalleryModel shopGalleryModel, int adapterPosition) {
+        this.shopGalleryModel = shopGalleryModel;
+        this.adapterPos = adapterPosition;
+        Intent intent = new Intent(ShopGalleryActivity.this, MapActivity.class);
+//        intent.putExtra("id", shopGalleryModel.getId());
+        startActivityForResult(intent,100);
+        id=shopGalleryModel.getId();
+     /*   Log.e("bbbbbbb", shopGalleryModel.getId() + "");
+        Log.e("bbbbbbb", userModel.getData().getAddress());
+        Log.e("bbbbbbbb", userModel.getData().getLatitude() + "");
+        Toast.makeText(this, shopGalleryModel.getId() + "__", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, userModel.getData().getAddress(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, userModel.getData().getLatitude() + "______", Toast.LENGTH_SHORT).show();
+*/
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable  Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode==100&&resultCode==RESULT_OK&&data!=null){
+            SelectedLocation selectedLocation = (SelectedLocation) data.getSerializableExtra("data");
+            ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
+            dialog.setCancelable(false);
+            dialog.show();
+            Api.getService(Tags.base_url)
+                    .updateLocationOfColorShow(id,selectedLocation.getAddress(),selectedLocation.getLat(), selectedLocation.getLng(), userModel.getData().getId())
+                    .enqueue(new Callback<ShopGalleryModel2>() {
+                        @Override
+                        public void onResponse(Call<ShopGalleryModel2> call, Response<ShopGalleryModel2> response) {
+                            dialog.dismiss();
+                            if (response.isSuccessful() && response.body() != null) {
+                                if (response.body().status == 200) {
+                                    Toast.makeText(ShopGalleryActivity.this, R.string.succ, Toast.LENGTH_SHORT).show();
+                                    shopGalleryModel.setAddress(selectedLocation.getAddress());
+                                    shopGalleryModel.setLatitude(selectedLocation.getLat()+"");
+                                    shopGalleryModel.setLongitude(selectedLocation.getLng()+"");
+                                    list.set(adapterPos, shopGalleryModel);
+                                    adapter.notifyItemChanged(adapterPos);
+                                }
+                            } else {
+
+                                try {
+                                    Log.e("error", response.errorBody().string());
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ShopGalleryModel2> call, Throwable t) {
+                            try {
+                                dialog.dismiss();
+                                if (t.getMessage() != null) {
+                                    Log.e("msg_category_error", t.getMessage() + "__");
+
+                                    if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
+                                        //              Toast.makeText(SignUpActivity.this, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        //            Toast.makeText(SignUpActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            } catch (Exception e) {
+                                Log.e("Error", e.getMessage() + "__");
+                            }
+                        }
+                    });
         }
     }
 }
