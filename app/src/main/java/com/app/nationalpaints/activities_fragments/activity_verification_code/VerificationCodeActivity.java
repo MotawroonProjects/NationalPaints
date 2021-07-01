@@ -101,8 +101,8 @@ public class VerificationCodeActivity extends AppCompatActivity {
             }
 
         });
-       // sendSmsCode();
-        login();
+      // sendSmsCode();
+       login();
     }
 
     private void sendSmsCode() {
@@ -116,6 +116,7 @@ public class VerificationCodeActivity extends AppCompatActivity {
             public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
                 smsCode = phoneAuthCredential.getSmsCode();
                 checkValidCode(smsCode);
+
             }
 
             @Override
@@ -178,6 +179,7 @@ public class VerificationCodeActivity extends AppCompatActivity {
             mAuth.signInWithCredential(credential)
                     .addOnSuccessListener(authResult -> {
                         login();
+                        FirebaseAuth.getInstance().getCurrentUser().delete();
                     }).addOnFailureListener(e -> {
                 if (e.getMessage() != null) {
                     Common.CreateDialogAlert(this, e.getMessage());

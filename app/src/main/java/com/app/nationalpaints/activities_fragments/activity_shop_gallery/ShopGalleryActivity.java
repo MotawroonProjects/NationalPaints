@@ -348,7 +348,7 @@ public class ShopGalleryActivity extends AppCompatActivity {
         this.adapterPos = adapterPosition;
         Intent intent = new Intent(ShopGalleryActivity.this, MapActivity.class);
 //        intent.putExtra("id", shopGalleryModel.getId());
-        startActivityForResult(intent,100);
+        startActivityForResult(intent,200);
         id=shopGalleryModel.getId();
      /*   Log.e("bbbbbbb", shopGalleryModel.getId() + "");
         Log.e("bbbbbbb", userModel.getData().getAddress());
@@ -363,8 +363,8 @@ public class ShopGalleryActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable  Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode==100&&resultCode==RESULT_OK&&data!=null){
-            SelectedLocation selectedLocation = (SelectedLocation) data.getSerializableExtra("data");
+        if (requestCode==200&&resultCode==RESULT_OK&&data!=null){
+            SelectedLocation selectedLocation = (SelectedLocation) data.getSerializableExtra("location");
             ProgressDialog dialog = Common.createProgressDialog(this, getString(R.string.wait));
             dialog.setCancelable(false);
             dialog.show();

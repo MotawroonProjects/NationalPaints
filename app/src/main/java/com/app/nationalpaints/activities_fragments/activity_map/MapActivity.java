@@ -134,7 +134,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         binding.btnSelect.setOnClickListener(view -> {
             SelectedLocation selectedLocation = new SelectedLocation(lat, lng, address);
             Intent intent = getIntent();
-            intent.putExtra("data",selectedLocation);
+            intent.putExtra("location",selectedLocation);
             setResult(RESULT_OK,intent);
             finish();
 
@@ -442,7 +442,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         if (requestCode == 100 && resultCode == Activity.RESULT_OK) {
 
             startLocationUpdate();
-        } else if (requestCode == 200 && resultCode == Activity.RESULT_OK){
+        } else  if (requestCode == 200 && resultCode == Activity.RESULT_OK) {
+
+            startLocationUpdate();
+        } else if (requestCode == 300 && resultCode == Activity.RESULT_OK){
             setResult(RESULT_OK);
             finish();
         }
