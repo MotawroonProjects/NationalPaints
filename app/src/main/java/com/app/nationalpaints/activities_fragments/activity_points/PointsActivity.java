@@ -149,7 +149,7 @@ public class PointsActivity extends AppCompatActivity implements DatePickerDialo
             datePickerDialog.setLocale(Locale.ENGLISH);
             datePickerDialog.setVersion(DatePickerDialog.Version.VERSION_1);
             try {
-                datePickerDialog.show(getFragmentManager(),"");
+                datePickerDialog.show(getSupportFragmentManager(),"");
             }catch (Exception e){}
         }catch (Exception e){}
     }
