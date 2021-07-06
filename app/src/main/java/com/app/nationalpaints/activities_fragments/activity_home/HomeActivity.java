@@ -30,6 +30,7 @@ import com.app.nationalpaints.preferences.Preferences;
 import com.app.nationalpaints.remote.Api;
 import com.app.nationalpaints.share.Common;
 import com.app.nationalpaints.tags.Tags;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -229,19 +230,19 @@ public class HomeActivity extends AppCompatActivity {
 
 
     private void updateFirebaseToken() {
-      /*  FirebaseInstanceId.getInstance()
+        FirebaseInstanceId.getInstance()
                 .getInstanceId()
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         String token = task.getResult().getToken();
                         try {
                             Api.getService(Tags.base_url)
-                                    .updatePhoneToken(userModel.getUser().getToken(), token, userModel.getUser().getId(), "android")
-                                    .enqueue(new Callback<ResponseBody>() {
+                                    .updateFirebaseToken(userModel.getData().getId(), token,"android")
+                                    .enqueue(new Callback<StatusResponse>() {
                                         @Override
-                                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                        public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
                                             if (response.isSuccessful() && response.body() != null) {
-                                                userModel.getUser().setFirebaseToken(token);
+                                                userModel.getData().setFirebase_token(token);
                                                 preferences.create_update_userdata(HomeActivity.this, userModel);
 
                                                 Log.e("token", "updated successfully");
@@ -256,16 +257,12 @@ public class HomeActivity extends AppCompatActivity {
                                         }
 
                                         @Override
-                                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                        public void onFailure(Call<StatusResponse> call, Throwable t) {
                                             try {
 
                                                 if (t.getMessage() != null) {
                                                     Log.e("errorToken2", t.getMessage());
-                                                    if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
-                                                        Toast.makeText(HomeActivity.this, R.string.something, Toast.LENGTH_SHORT).show();
-                                                    } else {
-                                                        Toast.makeText(HomeActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                                                    }
+
                                                 }
 
                                             } catch (Exception e) {
@@ -277,7 +274,6 @@ public class HomeActivity extends AppCompatActivity {
                         }
                     }
                 });
-*/
     }
 
     public void logout() {

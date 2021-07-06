@@ -210,5 +210,14 @@ public interface Service {
             @Field("longitude") double longitude,
             @Field("user_id") int user_id
     );
+
+
+    @FormUrlEncoded
+    @POST("api/firebase-tokens")
+    Call<StatusResponse> updateFirebaseToken(@Field("user_id") int user_id,
+                                            @Field("firebase_token") String phone_token,
+                                            @Field("software_type") String software_type
+
+    );
 }
 
